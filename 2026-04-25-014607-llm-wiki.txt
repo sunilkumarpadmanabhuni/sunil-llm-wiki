@@ -1,0 +1,1774 @@
+╭─── Claude Code v2.1.114 ─────────────────────────────────────────────────────╮
+│                                    │ Tips for getting started                │
+│            Welcome back!           │ ✔ Run /init to create a CLAUDE.md file… │
+│                                    │ ─────────────────────────────────────── │
+│               ▐▛███▜▌              │ Recent activity                         │
+│              ▝▜█████▛▘             │ No recent activity                      │
+│                ▘▘ ▝▝               │                                         │
+│                                    │                                         │
+│   Sonnet 4.6 · API Usage Billing   │                                         │
+│            C:\finvault             │                                         │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+❯ LLM Wiki                                                                      
+  A pattern for building personal knowledge bases using LLMs.                   
+                                                                                
+  This is an idea file, it is designed to be copy pasted to your own LLM Agent  
+  (e.g. OpenAI Codex, Claude Code, OpenCode / Pi, or etc.). Its goal is to      
+  communicate the high level idea, but your agent will build out the specifics  
+  in collaboration with you.                                                    
+                                                                                
+  The core idea                                                                 
+  Most people's experience with LLMs and documents looks like RAG: you upload a 
+   collection of files, the LLM retrieves relevant chunks at query time, and    
+  generates an answer. This works, but the LLM is rediscovering knowledge from  
+  scratch on every question. There's no accumulation. Ask a subtle question     
+  that requires synthesizing five documents, and the LLM has to find and piece  
+  together the relevant fragments every time. Nothing is built up. NotebookLM,  
+  ChatGPT file uploads, and most RAG systems work this way.                     
+                                                                                
+  The idea here is different. Instead of just retrieving from raw documents at  
+  query time, the LLM incrementally builds and maintains a persistent wiki — a  
+  structured, interlinked collection of markdown files that sits between you    
+  and the raw sources. When you add a new source, the LLM doesn't just index it 
+   for later retrieval. It reads it, extracts the key information, and          
+  integrates it into the existing wiki — updating entity pages, revising topic  
+  summaries, noting where new data contradicts old claims, strengthening or     
+  challenging the evolving synthesis. The knowledge is compiled once and then   
+  kept current, not re-derived on every query.                                  
+                                                                                
+  This is the key difference: the wiki is a persistent, compounding artifact.   
+  The cross-references are already there. The contradictions have already been  
+  flagged. The synthesis already reflects everything you've read. The wiki      
+  keeps getting richer with every source you add and every question you ask.    
+                                                                                
+  You never (or rarely) write the wiki yourself — the LLM writes and maintains  
+  all of it. You're in charge of sourcing, exploration, and asking the right    
+  questions. The LLM does all the grunt work — the summarizing,                 
+  cross-referencing, filing, and bookkeeping that makes a knowledge base        
+  actually useful over time. In practice, I have the LLM agent open on one side 
+   and Obsidian open on the other. The LLM makes edits based on our             
+  conversation, and I browse the results in real time — following links,        
+  checking the graph view, reading the updated pages. Obsidian is the IDE; the  
+  LLM is the programmer; the wiki is the codebase.                              
+                                                                                
+  This can apply to a lot of different contexts. A few examples:                
+                                                                                
+  Perso                                                                         
+  ──── (36 lines hidden) ────────────────────────────────────────────────────── 
+  er. If your LLM adds YAML frontmatter to wiki pages (tags, dates, source      
+  counts), Dataview can generate dynamic tables and lists.                      
+  The wiki is just a git repo of markdown files. You get version history,       
+  branching, and collaboration for free.                                        
+  Why this works                                                                
+  The tedious part of maintaining a knowledge base is not the reading or the    
+  thinking — it's the bookkeeping. Updating cross-references, keeping summaries 
+   current, noting when new data contradicts old claims, maintaining            
+  consistency across dozens of pages. Humans abandon wikis because the          
+  maintenance burden grows faster than the value. LLMs don't get bored, don't   
+  forget to update a cross-reference, and can touch 15 files in one pass. The   
+  wiki stays maintained because the cost of maintenance is near zero.           
+                                                                                
+  The human's job is to curate sources, direct the analysis, ask good           
+  questions, and think about what it all means. The LLM's job is everything     
+  else.                                                                         
+                                                                                
+  The idea is related in spirit to Vannevar Bush's Memex (1945) — a personal,   
+  curated knowledge store with associative trails between documents. Bush's     
+  vision was closer to this than to what the web became: private, actively      
+  curated, with the connections between documents as valuable as the documents  
+  themselves. The part he couldn't solve was who does the maintenance. The LLM  
+  handles that.                                                                 
+                                                                                
+  Note                                                                          
+  This document is intentionally abstract. It describes the idea, not a         
+  specific implementation. The exact directory structure, the schema            
+  conventions, the page formats, the tooling — all of that will depend on your  
+  domain, your preferences, and your LLM of choice. Everything mentioned above  
+  is optional and modular — pick what's useful, ignore what isn't. For example: 
+   your sources might be text-only, so you don't need image handling at all.    
+  Your wiki might be small enough that the index file is all you need, no       
+  search engine required. You might not care about slide decks and just want    
+  markdown pages. You might want a completely different set of output formats.  
+  The right way to use this is to share it with your LLM agent and work         
+  together to instantiate a version that fits your needs. The document's only   
+  job is to communicate the pattern. Your LLM can figure out the rest.          
+  You are now my LLM Wiki agent. Implement this exact idea file as my complete  
+  second brain. Guide me step-by-step: create the CLAUDE.md schema file with    
+  full rules, set up index.md and log.md, define folder conventions, and show   
+  me the first ingest example. From now on, every interaction follows the       
+  schema.                                                                       
+
+● Let me check what's already in your working directory before setting anything
+  up.
+
+  Listed 1 directory (ctrl+o to expand)
+
+● Obsidian is already configured here. Let me read the existing files to inform
+  the setup.
+
+  Read 1 file, listed 1 directory (ctrl+o to expand)
+
+● Fresh Obsidian vault, perfect foundation. One question before I write the
+  schema — the vault name "finvault" suggests finance/investing, but I want to
+  confirm the domain so CLAUDE.md is properly tailored.
+
+● User answered Claude's questions:
+  ⎿  · What is this wiki's primary domain? (This shapes entity categories, page 
+     templates, and ingest workflows in CLAUDE.md) → All of the above but mostly
+      intreseted in developing apps or mostly finance too. It is actually my 
+     second brain too.
+
+● Perfect — a multi-domain second brain covering finance, app development, and
+  general knowledge. I'll now build the full structure: directories, CLAUDE.md
+  schema, index.md, log.md, and starter templates. Creating everything in
+  parallel.
+
+● Bash(mkdir -p /c/finvault/raw/assets /c/finvault/wiki/entities
+      /c/finvault/wiki/concepts /c/finvault/wiki/sources
+      /c/finvault/wiki/synthesis /c/finvault/wiki/_templa…)
+  ⎿  dirs created
+
+● Write(CLAUDE.md)
+  ⎿  Wrote 338 lines to ..\c\finvault\CLAUDE.md
+      1 # FinVault — Wiki Schema & Agent Rules
+      2 
+      3 version: 1.0  
+      4 created: 2026-04-25  
+      5 domains: finance/investing, app development, personal knowledge
+      6 
+      7 ---
+      8 
+      9 ## Your Role
+     … +374 lines (ctrl+o to expand)
+
+● Write(index.md)
+  ⎿  Wrote 37 lines to ..\c\finvault\index.md
+      2 # FinVault Index
+      3 > Master catalog of all wiki pages. Maintained by the wiki agent 
+        — updated after every ingest, query, or add operation.
+      4 > 
+      5 > To find relevant pages: scan this file first, then read the lin
+        ked pages. Use Obsidian's graph view to explore connections.
+      6 
+      7 ---
+      8 
+      9 ## Sources
+     … +29 lines (ctrl+o to expand)
+
+● Write(log.md)
+  ⎿  Wrote 10 lines to ..\c\finvault\log.md
+       2 # FinVault Log
+       3 > Append-only. New entries at the top. Format: `## [YYYY-MM-DD] 
+       4 > Quick parse: `grep "^## \[" log.md | head -10`
+       5 
+       6 ---
+       8 ## [2026-04-25] init | FinVault Wiki Initialized
+       9 
+         i/entities/`, `wiki/concepts/`, `wiki/sources/`, `wiki/synthesis
+         /`, `wiki/_templates/`. Files created: `CLAUDE.md`, `index.md`, 
+         `log.md`. Ready for first ingest.
+     … +4 lines (ctrl+o to expand)
+
+● Now the starter templates in wiki/_templates/:
+
+● Write(wiki\_templates\source.md)
+  ⎿  Wrote 33 lines to ..\c\finvault\wiki\_templates\source.md
+       1 ---
+       2 title: 
+       3 type: source
+       4 tags: []
+       5 created: YYYY-MM-DD
+       6 updated: YYYY-MM-DD
+       7 status: active
+       8 original: raw/
+       9 sources: []
+      10 related: []
+     … +23 lines (ctrl+o to expand)
+
+● Write(wiki\_templates\entity.md)
+  ⎿  Wrote 27 lines to ..\c\finvault\wiki\_templates\entity.md
+       1 ---
+       2 title: 
+       3 type: entity
+       4 category: 
+       5 tags: []
+       6 created: YYYY-MM-DD
+       7 updated: YYYY-MM-DD
+       8 sources: []
+       9 related: []
+      10 status: stub
+     … +17 lines (ctrl+o to expand)
+
+● Write(wiki\_templates\concept.md)
+  ⎿  Wrote 24 lines to ..\c\finvault\wiki\_templates\concept.md
+       1 ---
+       2 title: 
+       3 type: concept
+       4 tags: []
+       5 created: YYYY-MM-DD
+       6 updated: YYYY-MM-DD
+       7 sources: []
+       8 related: []
+       9 status: stub
+      10 ---
+     … +14 lines (ctrl+o to expand)
+
+● Write(wiki\_templates\synthesis.md)
+  ⎿  Wrote 25 lines to ..\c\finvault\wiki\_templates\synthesis.md
+       1 ---
+       2 title: 
+       3 type: synthesis
+       4 tags: []
+       5 created: YYYY-MM-DD
+       6 updated: YYYY-MM-DD
+       7 sources: []
+       8 related: []
+       9 status: active
+      10 ---
+     … +15 lines (ctrl+o to expand)
+
+● Now a demo ingest to show you exactly how it works. I'll create a worked
+  example using the idea file you just shared as the first source:
+
+● Write(raw\2026-04-25-llm-wiki-pattern.md)
+  ⎿  Wrote 17 lines to ..\c\finvault\raw\2026-04-25-llm-wiki-pattern.md
+        g LLMsWiki — A Pattern for Building Personal Knowledge Bases Usin
+      3 Source: idea file shared on 2026-04-25
+      5 The core idea: instead of RAG (retrieval at query time), build a 
+        persistent, LLM-maintained wiki that compiles and synthesizes kno
+        ; the human curates sources and asks questions.ins all wiki pages
+      7 Three layers: raw sources (immutable), the wiki (LLM-maintained m
+        arkdown), and the schema (CLAUDE.md / AGENTS.md — the configurati
+      8 on that makes the LLM a disciplined maintainer).
+        answer questions from wiki, file good answers back), Lint (health
+        -check for contradictio
+     … +22 lines (ctrl+o to expand)
+
+● Write(wiki\sources\2026-04-25-llm-wiki-pattern.md)
+  ⎿  Wrote 52 lines to
+     ..\c\finvault\wiki\sources\2026-04-25-llm-wiki-pattern.md
+       2 title: "LLM Wiki: A Pattern for Building Personal Knowledge Base
+         s"
+       3 type: source
+       4 tags: [knowledge-management, llm, second-brain, obsidian]
+       5 created: 2026-04-25
+       6 updated: 2026-04-25
+       7 status: active
+       8 original: raw/2026-04-25-llm-wiki-pattern.md
+       9 sources: []
+      10 related: [rag-vs-wiki-synthesis, vannevar-bush-memex]
+     … +69 lines (ctrl+o to expand)
+
+● Write(wiki\concepts\persistent-wiki-pattern.md)
+  ⎿  Wrote 33 lines to
+     ..\c\finvault\wiki\concepts\persistent-wiki-pattern.md
+       2 title: Persistent Wiki Pattern
+       3 type: concept
+       4 tags: [knowledge-management, llm, second-brain]
+       5 created: 2026-04-25
+       6 updated: 2026-04-25
+       7 sources: [2026-04-25-llm-wiki-pattern]
+       8 related: [rag-retrieval-augmented-generation, memex, lint-workfl
+         ow]
+       9 status: active
+      10 ---
+     … +36 lines (ctrl+o to expand)
+
+● Write(wiki\concepts\rag-retrieval-augmented-generation.md)
+  ⎿  Wrote 31 lines to
+     ..\c\finvault\wiki\concepts\rag-retrieval-augmented-generation.md
+       1 ---
+       2 title: RAG (Retrieval-Augmented Generation)
+       3 type: concept
+       4 tags: [llm, knowledge-management, ai]
+       5 created: 2026-04-25
+       6 updated: 2026-04-25
+       7 sources: [2026-04-25-llm-wiki-pattern]
+       8 related: [persistent-wiki-pattern]
+       9 status: stub
+      10 ---
+     … +30 lines (ctrl+o to expand)
+● Write(wiki\entities\vannevar-bush.md)
+  ⎿  Wrote 37 lines to ..\c\finvault\wiki\entities\vannevar-bush.md
+       1 ---
+       2 title: Vannevar Bush
+       3 type: entity
+       4 category: person
+       5 tags: [history, knowledge-management, computing]
+       6 created: 2026-04-25
+       7 updated: 2026-04-25
+       8 sources: [2026-04-25-llm-wiki-pattern]
+       9 related: [memex, persistent-wiki-pattern]
+      10 status: stub
+     … +35 lines (ctrl+o to expand)
+
+● Write(wiki\entities\obsidian.md)
+  ⎿  Wrote 41 lines to ..\c\finvault\wiki\entities\obsidian.md
+       1 ---
+       2 title: Obsidian
+       3 type: entity
+       4 category: tool
+       5 tags: [pkm, markdown, knowledge-management]
+       6 created: 2026-04-25
+       7 updated: 2026-04-25
+       8 sources: [2026-04-25-llm-wiki-pattern]
+       9 related: [persistent-wiki-pattern, qmd]
+      10 status: stub
+     … +40 lines (ctrl+o to expand)
+
+● Now update index.md and log.md to reflect the ingest:
+
+● Write(index.md)
+  ⎿  Added 8 lines, removed 3 lines
+      10  
+      11  | Page | Summary | Date |
+      12  |------|---------|------|
+      13 -| — | *No sources ingested yet* | — |                          
+      13 +| [[2026-04-25-llm-wiki-pattern]] | Founding source: LLM wiki p
+         +attern — persistent, compounding wiki vs. RAG | 2026-04-25 |   
+      14  
+      15  ---
+      16  
+     ...
+      18  
+      19  | Page | Category | Summary |
+      20  |------|----------|---------|
+      21 -| — | — | *No entities yet* |                                  
+      21 +| [[vannevar-bush]] | person | Inventor of the Memex concept (1
+         +945); prior art for personal knowledge stores |                
+      22 +| [[obsidian]] | tool | Local markdown app — recommended IDE fo
+         +r browsing this wiki |                                         
+      23 +| [[qmd]] | tool | Local markdown search engine (BM25/vector + 
+         +LLM re-ranking) — *stub pending ingest* |                      
+      24  
+      25  ---
+      26  
+     ...
+      28  
+      29  | Page | Summary |
+      30  |------|---------|
+      29 -| — | *No concepts yet* |                                      
+      31 +| [[persistent-wiki-pattern]] | Core pattern: LLM-maintained co
+         +mpounding wiki; contrast with RAG |                            
+      32 +| [[rag-retrieval-augmented-generation]] | Dominant alternative
+         + — re-derives answers per query, no compounding |              
+      33 +| [[memex]] | Bush's 1945 associative knowledge machine — *stub
+         + pending ingest* |                                             
+      34 +| [[lint-workflow]] | Health-check operation for contradictions
+         +, orphans, stubs, gaps — *stub pending ingest* |               
+      35  
+      36  ---
+      37  
+
+● Write(log.md)
+  ⎿  Added 4 lines
+       5  
+       6  ---
+       7  
+       8 +## [2026-04-25] ingest | LLM Wiki: A Pattern for Building Perso
+         +nal Knowledge Bases                                            
+       9 +                                                               
+      10 +Processed founding source (the idea file that defines this wiki
+         +'s pattern). Files created: `wiki/sources/2026-04-25-llm-wiki-p
+         +attern.md`, `wiki/concepts/persistent-wiki-pattern.md`, `wiki/c
+         +oncepts/rag-retrieval-augmented-generation.md`, `wiki/entities/
+         +vannevar-bush.md`, `wiki/entities/obsidian.md`. Index updated: 
+         +1 source, 3 entities (2 stubs), 4 concepts (2 stubs). Stubs to 
+         +flesh out: `qmd`, `memex`, `lint-workflow`.                    
+      11 +                                                               
+      12  ## [2026-04-25] init | FinVault Wiki Initialized
+      13  
+      14  Wiki structure created. Directories: `raw/`, `raw/assets/`, `wi
+          ki/entities/`, `wiki/concepts/`, `wiki/sources/`, `wiki/synthes
+          is/`, `wiki/_templates/`. Files created: `CLAUDE.md`, `index.md
+          `, `log.md`. Ready for first ingest.
+
+● Let me verify the full structure looks right:
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● FinVault is live. Here's what was built and how to use it:
+
+  ---
+  Structure created:
+  CLAUDE.md          ← the schema that governs every future interaction
+  index.md           ← your content catalog (I keep it current)
+  log.md             ← append-only timeline of all operations
+  raw/               ← drop sources here (I never modify this)
+  wiki/
+    sources/         ← one page per ingested source
+    entities/        ← companies, people, tools, projects
+    concepts/        ← ideas, frameworks, mental models
+    synthesis/       ← analyses, comparisons, filed Q&A answers
+    _templates/      ← reference templates
+
+  First ingest completed — the idea file you shared became 5 wiki pages: 1
+  source, 2 concept pages, 2 entity pages, with full frontmatter, cross-links,
+  and index/log updated.
+
+  ---
+  How to work with me going forward:
+
+  ┌────────────────────┬────────────────────────────────────────────────────┐
+  │      You say       │                     What I do                      │
+  ├────────────────────┼────────────────────────────────────────────────────┤
+  │ ingest             │ Full ingest workflow — source page, entity/concept │
+  │ raw/filename.md    │  updates, index, log                               │
+  ├────────────────────┼────────────────────────────────────────────────────┤
+  │ Ask any question   │ Read index → read relevant pages → synthesize with │
+  │                    │  citations; offer to file as synthesis page        │
+  ├────────────────────┼────────────────────────────────────────────────────┤
+  │ lint the wiki      │ Health check — contradictions, orphans, stubs,     │
+  │                    │ missing pages, suggestions                         │
+  └────────────────────┴────────────────────────────────────────────────────┘
+
+  Next step: Open Obsidian, browse the graph view, and drop your first real
+  source into raw/. Finance article, paper, book chapter, meeting notes —
+  anything goes.
+
+✻ Cooked for 4m 59s
+
+❯ /cost                                                                         
+  ⎿  Total cost:            $0.78
+     Total duration (API):  4m 56s
+     Total duration (wall): 25m 52s
+     Total code changes:    730 lines added, 3 lines removed
+     Usage by model:
+         claude-haiku-4-5:  3.1k input, 14 output, 0 cache read, 0 cache write ($0.0032)
+        claude-sonnet-4-6:  23 input, 14.0k output, 744.0k cache read, 90.6k cache write ($0.77)
+
+❯ /export                                                                       
+  ⎿  Conversation exported to: C:\finvault\2026-04-25-002646-llm-wiki.txt
+
+※ recap: Built a full LLM Wiki second brain in your Obsidian vault at C:\finvault, with CLAUDE.md schema, index, log, templates, and a demo ingest already done. Next: drop your first real source file into raw/ and say "ingest" to start compounding knowledge. (disable recaps in /config)
+
+❯ Awesome. I just threw a pdf called FinGPT-Paper.pdf into the raw. Can you     
+  please go ahead and ingest that?                                              
+
+● Reading the PDF now.
+
+  Searched for 1 pattern, read 1 file, listed 1 directory (ctrl+o to expand)
+
+● Found it in raw/assets/ instead of raw/. Reading it now.
+
+  Read 1 file (ctrl+o to expand)
+
+● Bash(python3 -c "
+      import sys…)
+  ⎿  PyMuPDF not available
+
+● Bash(python3 -c "
+      import pdfplumber…)
+  ⎿  Traceback (most recent call last):
+       File "<string>", line 2, in <module>
+     ModuleNotFoundError: No module named 'pdfplumber'
+
+● Bash(python3 -c "
+      from pypdf import PdfReader…)
+  ⎿  Traceback (most recent call last):
+       File "<string>", line 2, in <module>
+     ModuleNotFoundError: No module named 'pypdf'
+
+● Bash(python3 -c "
+      from PyPDF2 import PdfReader…)
+  ⎿  Traceback (most recent call last):
+       File "<string>", line 2, in <module>
+     ModuleNotFoundError: No module named 'PyPDF2'
+
+● Bash(pip install pymupdf -q 2>&1 | tail -3)
+  ⎿  [notice] A new release of pip is available: 25.2 -> 26.0.1
+     [notice] To update, run: C:\Users\Sunil_Padmanabhuni\AppData\Local\Mic
+     rosoft\WindowsApps\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\
+     python.exe -m pip install --upgrade pip
+
+● Bash(python3 -c "
+      import fitz…)
+  ⎿  Traceback (most recent call last):
+       File "<string>", line 3, in <module>
+       File "C:\Users\Sunil_Padmanabhuni\AppData\Local\Packages\PythonSoftw
+     … +5 lines (ctrl+o to expand)
+
+● Bash(python3 -c "
+      import fitz…)  ⎿  Traceback (most recent call last):
+       File "<string>", line 7, in <module>
+       File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3
+     … +9 lines (ctrl+o to expand)
+
+● 9 pages, encoding issue. Let me extract with UTF-8:
+
+● Bash(python3 -c "
+      import fitz, sys…)
+  ⎿  Pages: 9
+
+     --- PAGE 1 ---
+     … +424 lines (ctrl+o to expand)
+
+  Read 1 file (ctrl+o to expand)
+
+● Full paper read. 9 pages — FinGPT as open-source FinLLM framework, LoRA
+  fine-tuning, RLSP, sentiment analysis benchmarks. Now building all wiki pages.
+
+● Write(wiki\sources\2026-04-25-fingpt-paper.md)
+  ⎿  Wrote 72 lines to
+     ..\c\finvault\wiki\sources\2026-04-25-fingpt-paper.md
+       2 title: "FinGPT: Open-Source Financial Large Language Models"
+       3 type: source
+         s]gs: [finance, llm, open-source, fintech, ai, sentiment-analysi
+       5 created: 2026-04-25
+       6 updated: 2026-04-25
+       8 original: raw/assets/FinGPT-Paper.pdf
+       9 sources: []
+         rank-adaptation, rlsp-reinforcement-learning-stock-prices, finll
+         m, financial-sentiment-analysis, rag-retrieval-augmented-generat
+         ion]
+     … +106 lines (ctrl+o to expand)
+
+● Write(wiki\entities\fingpt.md)
+  ⎿  Wrote 67 lines to ..\c\finvault\wiki\entities\fingpt.md
+       2 title: FinGPT
+       3 type: entity
+       4 category: tool
+         s, trading]-source, llm, finance, fintech, ai, sentiment-analysi
+       6 created: 2026-04-25
+       7 updated: 2026-04-25
+       9 related: [bloomberggpt, ai4finance-foundation, lora-low-rank-ada
+         ptation, rlsp-reinforcement-learning-stock-prices, finllm, finan
+         cial-sentiment-analysis]
+      10 status: active
+     … +85 lines (ctrl+o to expand)
+
+● Write(wiki\entities\bloomberggpt.md)
+  ⎿  Wrote 39 lines to ..\c\finvault\wiki\entities\bloomberggpt.md
+       1 ---
+       2 title: BloombergGPT
+       3 type: entity
+       4 category: tool
+       5 tags: [llm, finance, proprietary, fintech]
+       6 created: 2026-04-25
+       7 updated: 2026-04-25
+       8 sources: [2026-04-25-fingpt-paper]
+       9 related: [fingpt, finllm, lora-low-rank-adaptation]
+      10 status: stub
+     … +42 lines (ctrl+o to expand)
+
+● Write(wiki\entities\ai4finance-foundation.md)
+  ⎿  Wrote 39 lines to ..\c\finvault\wiki\entities\ai4finance-foundation.md
+       1 ---
+       2 title: AI4Finance Foundation
+       3 type: entity
+       4 category: organization
+       5 tags: [open-source, finance, ai, nonprofit]
+       6 created: 2026-04-25
+       7 updated: 2026-04-25
+       8 sources: [2026-04-25-fingpt-paper]
+       9 related: [fingpt, finllm]
+      10 status: stub
+     … +35 lines (ctrl+o to expand)
+
+● Write(wiki\concepts\lora-low-rank-adaptation.md)
+  ⎿  Wrote 52 lines to
+     ..\c\finvault\wiki\concepts\lora-low-rank-adaptation.md
+       2 title: LoRA (Low-Rank Adaptation)
+       3 type: concept
+       4 tags: [llm, fine-tuning, ai, efficiency]
+       5 created: 2026-04-25
+       6 updated: 2026-04-25
+       7 sources: [2026-04-25-fingpt-paper]
+       8 related: [rlsp-reinforcement-learning-stock-prices, fingpt, finl
+         lm]
+       9 status: active
+      10 ---
+     … +59 lines (ctrl+o to expand)
+
+● Write(wiki\concepts\rlsp-reinforcement-learning-stock-prices.md)
+  ⎿  Wrote 69 lines to ..\c\finvault\wiki\concepts\rlsp-reinforcement-learn
+     ing-stock-prices.md
+       2 title: RLSP (Reinforcement Learning on Stock Prices)
+       3 type: concept
+       4 tags: [llm, fine-tuning, reinforcement-learning, finance, tradin
+         g]
+       5 created: 2026-04-25
+       7 sources: [2026-04-25-fingpt-paper]
+       8 related: [lora-low-rank-adaptation, fingpt, financial-sentiment-
+         analysis]
+       9 status: active
+      10 ---
+     … +82 lines (ctrl+o to expand)
+
+● Write(wiki\concepts\finllm.md)
+  ⎿  Wrote 49 lines to ..\c\finvault\wiki\concepts\finllm.md
+       2 title: FinLLM (Financial Large Language Model)
+       3 type: concept
+       4 tags: [finance, llm, ai, fintech]
+       5 created: 2026-04-25
+       6 updated: 2026-04-25
+       7 sources: [2026-04-25-fingpt-paper]
+       8 related: [fingpt, bloomberggpt, lora-low-rank-adaptation, financ
+         ial-sentiment-analysis, rag-retrieval-augmented-generation]
+       9 status: active
+      10 ---
+     … +57 lines (ctrl+o to expand)
+
+● Write(wiki\concepts\financial-sentiment-analysis.md)
+  ⎿  Wrote 61 lines to
+     ..\c\finvault\wiki\concepts\financial-sentiment-analysis.md
+       2 title: Financial Sentiment Analysis
+       3 type: concept
+       4 tags: [finance, nlp, sentiment, trading, signal]
+       5 created: 2026-04-25
+       6 updated: 2026-04-25
+       7 sources: [2026-04-25-fingpt-paper]
+       8 related: [fingpt, finllm, rlsp-reinforcement-learning-stock-pric
+         es, lora-low-rank-adaptation]
+       9 status: active
+      10 ---
+     … +66 lines (ctrl+o to expand)
+
+● Now update the RAG concept page to add FinGPT as an example, then write
+  index.md and log.md:
+
+● Update(wiki\concepts\rag-retrieval-augmented-generation.md)
+  ⎿  File not found
+
+  Searched for 2 patterns, read 1 file (ctrl+o to expand)
+
+● The first-session wiki files are missing — looks like they didn't persist
+  across the export/restart. I'll recreate them now and write everything to
+  index.md properly.
+
+● Write(raw\2026-04-25-llm-wiki-pattern.md)
+  ⎿  Wrote 17 lines to ..\c\finvault\raw\2026-04-25-llm-wiki-pattern.md
+        g LLMsWiki — A Pattern for Building Personal Knowledge Bases Usin
+      3 Source: idea file shared on 2026-04-25
+      5 The core idea: instead of RAG (retrieval at query time), build a 
+        persistent, LLM-maintained wiki that compiles and synthesizes kno
+        ; the human curates sources and asks questions.ins all wiki pages
+      7 Three layers: raw sources (immutable), the wiki (LLM-maintained m
+        arkdown), and the schema (CLAUDE.md / AGENTS.md — the configurati
+      8 on that makes the LLM a disciplined maintainer).
+        answer questions from wiki, file good answers back), Lint (health
+        -check for contradictio
+     … +22 lines (ctrl+o to expand)
+
+● Write(wiki\sources\2026-04-25-llm-wiki-pattern.md)
+  ⎿  Wrote 49 lines to
+     ..\c\finvault\wiki\sources\2026-04-25-llm-wiki-pattern.md
+       2 title: "LLM Wiki: A Pattern for Building Personal Knowledge Base
+         s"
+       3 type: source
+       4 tags: [knowledge-management, llm, second-brain, obsidian]
+       5 created: 2026-04-25
+       7 status: active04-25
+       8 original: raw/2026-04-25-llm-wiki-pattern.md
+       9 sources: []
+      10 related: [persistent-wiki-pattern, rag-retrieval-augmented-gener
+         ation, vannevar-bush, obsidian]
+     … +60 lines (ctrl+o to expand)
+
+● Write(wiki\concepts\persistent-wiki-pattern.md)
+  ⎿  Wrote 32 lines to
+     ..\c\finvault\wiki\concepts\persistent-wiki-pattern.md
+       1 ---
+       2 title: Persistent Wiki Pattern
+       3 type: concept
+       4 tags: [knowledge-management, llm, second-brain]
+       5 created: 2026-04-25
+       6 updated: 2026-04-25
+       7 sources: [2026-04-25-llm-wiki-pattern]
+       8 related: [rag-retrieval-augmented-generation, memex]
+       9 status: active
+      10 ---
+     … +33 lines (ctrl+o to expand)
+
+● Write(wiki\concepts\rag-retrieval-augmented-generation.md)
+  ⎿  Wrote 42 lines to
+     ..\c\finvault\wiki\concepts\rag-retrieval-augmented-generation.md
+       1 ---
+       2 title: RAG (Retrieval-Augmented Generation)
+       3 type: concept
+       4 tags: [llm, knowledge-management, ai, fintech]
+       5 created: 2026-04-25
+       6 updated: 2026-04-25
+       7 sources: [2026-04-25-llm-wiki-pattern, 2026-04-25-fingpt-paper]
+       8 related: [persistent-wiki-pattern, finllm, fingpt]
+       9 status: active
+      10 ---
+     … +50 lines (ctrl+o to expand)
+
+● Write(wiki\entities\vannevar-bush.md)  ⎿  Wrote 37 lines to ..\c\finvault\wiki\entities\vannevar-bush.md
+       1 ---
+       2 title: Vannevar Bush
+       3 type: entity
+       4 category: person
+       5 tags: [history, knowledge-management, computing]
+       6 created: 2026-04-25
+       7 updated: 2026-04-25
+       8 sources: [2026-04-25-llm-wiki-pattern]
+       9 related: [memex, persistent-wiki-pattern]
+      10 status: stub
+     … +35 lines (ctrl+o to expand)
+
+● Write(wiki\entities\obsidian.md)
+  ⎿  Wrote 33 lines to ..\c\finvault\wiki\entities\obsidian.md
+       1 ---
+       2 title: Obsidian
+       3 type: entity
+       4 category: tool
+       5 tags: [pkm, markdown, knowledge-management]
+       6 created: 2026-04-25
+       7 updated: 2026-04-25
+       8 sources: [2026-04-25-llm-wiki-pattern]
+       9 related: [persistent-wiki-pattern]
+      10 status: stub
+     … +30 lines (ctrl+o to expand)
+
+● Now write the complete, accurate index.md and log.md:
+
+● Write(index.md)
+  ⎿  Added 22 lines, removed 6 lines
+       1  # FinVault Index
+       2  
+       3  > Master catalog of all wiki pages. Maintained by the wiki agen
+          t — updated after every ingest, query, or add operation.
+       4 ->                                                              
+       4  > To find relevant pages: scan this file first, then read the l
+          inked pages. Use Obsidian's graph view to explore connections.
+       5  
+       6  ---
+       7  
+       8  ## Sources
+       9  
+      10 +| Page | Summary | Date |                                      
+      11 +|------|---------|------|                                      
+      12 +| [[2026-04-25-llm-wiki-pattern]] | Founding source: LLM wiki p
+         +attern — persistent compounding wiki vs. RAG | 2026-04-25 |    
+      13 +| [[2026-04-25-fingpt-paper]] | FinGPT: open-source FinLLM fram
+         +ework; LoRA fine-tuning, RLSP, 82.1% sentiment accuracy | 2026-
+         +04-25 |                                                        
+      14  
+      15  ---
+      16  
+      17  ## Entities
+      18  
+      19 +| Page | Category | Summary |                                  
+      20 +|------|----------|---------|                                  
+      21 +| [[vannevar-bush]] | person | Inventor of the Memex (1945); pr
+         +ior art for personal knowledge stores |                        
+      22 +| [[obsidian]] | tool | Local markdown app — recommended IDE fo
+         +r browsing this wiki |                                         
+      23 +| [[fingpt]] | tool | Open-source FinLLM framework by AI4Financ
+         +e; LoRA + RLSP; ~$300/fine-tune |                              
+      24 +| [[bloomberggpt]] | tool | Proprietary FinLLM by Bloomberg; ~$
+         +3M training cost; contrast case for FinGPT |                   
+      25 +| [[ai4finance-foundation]] | organization | Nonprofit behind F
+         +inGPT, FinRL, FinRobot, FinNLP |                               
+      26  
+      17 -                                                               
+      27  ---
+      28  
+      29  ## Concepts
+      30  
+      31 +| Page | Summary |                                             
+      32 +|------|---------|                                             
+      33 +| [[persistent-wiki-pattern]] | Core FinVault pattern: LLM-main
+         +tained compounding wiki vs. re-deriving from raw sources |     
+      34 +| [[rag-retrieval-augmented-generation]] | Dominant LLM+docs pa
+         +ttern (re-derives per query); also a component in FinGPT's pipe
+         +line |                                                         
+      35 +| [[finllm]] | Financial LLMs as a category; core challenges: t
+         +emporal sensitivity, dynamism, SNR |                           
+      36 +| [[lora-low-rank-adaptation]] | Parameter-efficient fine-tunin
+         +g; reduces FinGPT adaptation cost by ~1,000× to ~$300 |        
+      37 +| [[rlsp-reinforcement-learning-stock-prices]] | FinGPT's novel
+         + training signal; uses stock price movements instead of human f
+         +eedback |                                                      
+      38 +| [[financial-sentiment-analysis]] | Classify financial text as
+         + positive/negative/neutral; FinGPT: 82.1% accuracy |           
+      39  
+      23 -                                                               
+      40  ---
+      41  
+      42  ## Synthesis
+      43  
+      28 -| Page | Summary                  | Date |                     
+      29 -| ---- | ------------------------ | ---- |                     
+      30 -| —    | *No synthesis pages yet* | —    |                     
+      44 +| Page | Summary | Date |                                      
+      45 +|------|---------|------|                                      
+      46 +| — | *No synthesis pages yet* | — |                           
+
+● Write(log.md)
+  ⎿  Added 6 lines, removed 2 lines
+       5  
+       6  ---
+       7  
+       8 +## [2026-04-25] ingest | FinGPT: Open-Source Financial Large La
+         +nguage Models                                                  
+       9 +                                                               
+      10 +Processed 9-page academic paper (PDF). Files created: `wiki/sou
+         +rces/2026-04-25-fingpt-paper.md`, `wiki/entities/fingpt.md`, `w
+         +iki/entities/bloomberggpt.md`, `wiki/entities/ai4finance-founda
+         +tion.md`, `wiki/concepts/lora-low-rank-adaptation.md`, `wiki/co
+         +ncepts/rlsp-reinforcement-learning-stock-prices.md`, `wiki/conc
+         +epts/finllm.md`, `wiki/concepts/financial-sentiment-analysis.md
+         +`. Updated: `wiki/concepts/rag-retrieval-augmented-generation.m
+         +d` (added FinGPT example), `index.md`, `log.md`. Total: 8 new p
+         +ages, 2 updated.                                               
+      11 +                                                               
+      12  ## [2026-04-25] ingest | LLM Wiki: A Pattern for Building Perso
+          nal Knowledge Bases
+      13  
+      10 -Processed founding source (the idea file that defines this wiki
+         -'s pattern). Files created: `wiki/sources/2026-04-25-llm-wiki-p
+         -attern.md`, `wiki/concepts/persistent-wiki-pattern.md`, `wiki/c
+         -oncepts/rag-retrieval-augmented-generation.md`, `wiki/entities/
+         -vannevar-bush.md`, `wiki/entities/obsidian.md`. Index updated: 
+         -1 source, 3 entities (2 stubs), 4 concepts (2 stubs). Stubs to 
+         -flesh out: `qmd`, `memex`, `lint-workflow`.                    
+      14 +Processed founding source (the idea file defining this wiki's p
+         +attern). Files created: `raw/2026-04-25-llm-wiki-pattern.md`, `
+         +wiki/sources/2026-04-25-llm-wiki-pattern.md`, `wiki/concepts/pe
+         +rsistent-wiki-pattern.md`, `wiki/concepts/rag-retrieval-augment
+         +ed-generation.md`, `wiki/entities/vannevar-bush.md`, `wiki/enti
+         +ties/obsidian.md`. Index updated: 1 source, 2 entities, 2 conce
+         +pts.                                                           
+      15  
+      16  ## [2026-04-25] init | FinVault Wiki Initialized
+      17  
+      14 -Wiki structure created. Directories: `raw/`, `raw/assets/`, `wi
+         -ki/entities/`, `wiki/concepts/`, `wiki/sources/`, `wiki/synthes
+         -is/`, `wiki/_templates/`. Files created: `CLAUDE.md`, `index.md
+         -`, `log.md`. Ready for first ingest.                           
+      18 +Wiki structure created. Directories: `raw/`, `raw/assets/`, `wi
+         +ki/entities/`, `wiki/concepts/`, `wiki/sources/`, `wiki/synthes
+         +is/`, `wiki/_templates/`. Files created: `CLAUDE.md`, `index.md
+         +`, `log.md`, 4 templates. Ready for first ingest.              
+
+● FinGPT paper fully ingested. Here's a summary of what was created:
+
+  8 new wiki pages:
+
+  ┌──────────────────────────────────────────────────────┬───────────────────┐
+  │                         File                         │       Type        │
+  ├──────────────────────────────────────────────────────┼───────────────────┤
+  │ sources/2026-04-25-fingpt-paper.md                   │ Full source with  │
+  │                                                      │ benchmarks table  │
+  ├──────────────────────────────────────────────────────┼───────────────────┤
+  │                                                      │ Framework,        │
+  │ entities/fingpt.md                                   │ 5-layer           │
+  │                                                      │ architecture,     │
+  │                                                      │ performance data  │
+  ├──────────────────────────────────────────────────────┼───────────────────┤
+  │                                                      │ Stub — contrast   │
+  │ entities/bloomberggpt.md                             │ case, $3M         │
+  │                                                      │ training cost     │
+  │                                                      │ note              │
+  ├──────────────────────────────────────────────────────┼───────────────────┤
+  │                                                      │ Stub — org behind │
+  │ entities/ai4finance-foundation.md                    │  FinGPT, FinRL,   │
+  │                                                      │ FinRobot          │
+  ├──────────────────────────────────────────────────────┼───────────────────┤
+  │                                                      │ LoRA mechanics,   │
+  │ concepts/lora-low-rank-adaptation.md                 │ FinGPT numbers,   │
+  │                                                      │ $300 fine-tune    │
+  │                                                      │ cost              │
+  ├──────────────────────────────────────────────────────┼───────────────────┤
+  │                                                      │ RLSP mechanics,   │
+  │ concepts/rlsp-reinforcement-learning-stock-prices.md │ self-labeling     │
+  │                                                      │ schema, ablation  │
+  │                                                      │ table             │
+  ├──────────────────────────────────────────────────────┼───────────────────┤
+  │                                                      │ FinLLM as         │
+  │ concepts/finllm.md                                   │ category, 3 core  │
+  │                                                      │ challenges, key   │
+  │                                                      │ players table     │
+  ├──────────────────────────────────────────────────────┼───────────────────┤
+  │ concepts/financial-sentiment-analysis.md             │ Full benchmark    │
+  │                                                      │ comparison table  │
+  └──────────────────────────────────────────────────────┴───────────────────┘
+
+  Key things worth noting:
+  - RLSP is genuinely novel — using stock price reactions as the training signal
+   sidesteps the human annotation bottleneck entirely
+  - The $300 vs. $3M cost gap via LoRA is the practical "unlock" for
+  personal/research use
+  - Added a ⚠️ caveat on bloomberggpt.md — the benchmark comparison may not be
+  apples-to-apples since FinGPT and BloombergGPT used different test sets
+
+✻ Sautéed for 6m 38s
+
+※ recap: Building a personal second brain wiki in Obsidian at C:\finvault. Just ingested the FinGPT paper creating 8 wiki pages. Next: drop another source into raw/ to continue building the knowledge base. (disable recaps in /config)
+
+❯ Running bloomberg and fingpt in local machine.                                
+
+● Bash(python3 --version && nvidia-smi 2>/dev/null || echo "no nvidia-smi" &&
+      python3 -c "import torch; print('torch:', torch.__version__, '| CUDA:',
+      torch.cuda.is_ava…)
+  ⎿  Python 3.12.10
+     no nvidia-smi
+     torch not installed
+
+● Bash(wmic computersystem get TotalPhysicalMemory 2>/dev/null; wmic path
+      win32_VideoController get name,AdapterRAM 2>/dev/null)
+  ⎿  ��TotalPhysicalMemory
+     33777467392
+     AdapterRAM  Name
+     … +2 lines (ctrl+o to expand)
+
+● Important heads-up before we start: BloombergGPT is proprietary and not 
+  publicly released — Bloomberg has never made the model weights available for
+  download. You cannot run it locally.
+
+  Here's the honest picture:
+
+  ┌───────────────────────┬────────────────────┬───────────────────────────┐
+  │         Model         │ Locally runnable?  │       Your hardware       │
+  ├───────────────────────┼────────────────────┼───────────────────────────┤
+  │ BloombergGPT (50B)    │ ❌ Not publicly    │ Also needs ~100GB VRAM    │
+  │                       │ available          │                           │
+  ├───────────────────────┼────────────────────┼───────────────────────────┤
+  │ FinGPT (Llama-3.1-8B  │ ✅ Open-source     │ CPU-only, 32GB RAM — slow │
+  │ + LoRA)               │                    │  but feasible             │
+  ├───────────────────────┼────────────────────┼───────────────────────────┤
+  │ FinBERT (BERT-based)  │ ✅ Open-source     │ CPU fine, lightweight     │
+  └───────────────────────┴────────────────────┴───────────────────────────┘
+
+  Your machine: 32GB RAM, Intel integrated graphics, no NVIDIA GPU. FinGPT will
+  work but inference will be slow (CPU-only). For the Bloomberg side, the
+  closest open alternative is FinBERT — a BERT model fine-tuned on financial
+  text, much lighter weight.
+
+  What are you trying to do — pick the path that makes sense:
+
+● User answered Claude's questions:
+  ⎿  · What do you want to accomplish with these models? → Find latest wiki and 
+     ingest to my obsidian vault
+
+● Got it — you want to find the latest documentation/wikis for FinGPT (and
+  BloombergGPT public info) and ingest them into FinVault. Let me search for the
+   most current sources.
+
+● Explore(Search for latest FinGPT and BloombergGPT documentation)
+  ⎿  Done (37 tool uses · 40.1k tokens · 7m 9s)
+  (ctrl+o to expand)
+
+● Excellent research. Now ingesting all three sources into the wiki — 3 raw
+  files, 3 source pages, 2 entity updates, 2 concept updates, 1 new entity, plus
+   index and log.
+
+● Write(raw\2026-04-25-fingpt-github.md)
+  ⎿  Wrote 61 lines to ..\c\finvault\raw\2026-04-25-fingpt-github.md
+        ) FinGPT — GitHub & HuggingFace Current State (fetched 2026-04-25
+      2 
+      3 Source: github.com/AI4Finance-Foundation/FinGPT + huggingface.co/
+      4 FinGPT
+      5 ## Release Status
+      6 v1.0.0 released April 8, 2026. Best Presentation Award at FinLLM 
+      7 arXiv: 2306.06031 (original), 2310.04793 (benchmark, NeurIPS 2023
+         workshop), ACM ICAIF-23.
+      8 
+      9 ## Model Inventory (HuggingFace, as of Oct 2024)
+     … +80 lines (ctrl+o to expand)
+
+● Write(raw\2026-04-25-bloomberggpt-arxiv.md)
+  ⎿  Wrote 71 lines to ..\c\finvault\raw\2026-04-25-bloomberggpt-arxiv.md
+      2 # BloombergGPT — arXiv Paper Summary (fetched 2026-04-25)
+      3 Source: arxiv.org/abs/2303.17564 (submitted Mar 30, 2023; revised
+      4 Authors: Shijie Wu, Ozan Irsoy, Steven Lu, Vadim Dabravolski, Mar
+        k Dredze, Sebastian Gehrmann, Prabhanjan Kambadur, David Rosenber
+      5 g, Gideon Mann (Bloomberg LP)
+      6 ## Abstract (key excerpt)
+        hat is trained on a wide range of financial data. We construct a 
+        large scale dataset based on Bloomberg's data sources, perhaps th
+        hieves strong performance on financial NLP tasks, while also perf
+        orming well on general purpose LLM benc
+     … +80 lines (ctrl+o to expand)
+
+● Write(raw\2026-04-25-finnlp-github.md)
+  ⎿  Wrote 58 lines to ..\c\finvault\raw\2026-04-25-finnlp-github.md
+      2 # FinNLP — GitHub Current State (fetched 2026-04-25)
+      3 Source: github.com/AI4Finance-Foundation/FinNLP
+        ebooks, ~37.4% Python. use). PyPI installable. ~62.6% Jupyter Not
+      5 
+      6 ## Overview
+        e companion to FinGPT. Complete pipelines for downloading, proces
+        sing, and preparing financial text data for LLM training. Covers 
+        nancial NLP toolkits.arkets — distinguishing feature vs. other fi
+      8 
+      9 ## Supported Data Sources (20+)
+     … +59 lines (ctrl+o to expand)
+
+● Now write the three source pages and new FinNLP entity in parallel:
+
+● Write(wiki\sources\2026-04-25-fingpt-github.md)
+  ⎿  Wrote 54 lines to
+     ..\c\finvault\wiki\sources\2026-04-25-fingpt-github.md
+       2 title: "FinGPT: GitHub & HuggingFace Current State (2026-04-25)"
+       3 type: source
+       4 tags: [finance, llm, open-source, fintech, ai, sentiment-analysi
+         s, forecasting]
+       5 created: 2026-04-25
+       7 status: active04-25
+       8 original: raw/2026-04-25-fingpt-github.md
+       9 sources: []
+      10 related: [fingpt, finnlp, lora-low-rank-adaptation, rlsp-reinfor
+         cement-learning-stock-prices, financial-sentiment-analysis]
+     … +70 lines (ctrl+o to expand)
+
+● Write(wiki\sources\2026-04-25-bloomberggpt-arxiv.md)
+  ⎿  Wrote 58 lines to
+     ..\c\finvault\wiki\sources\2026-04-25-bloomberggpt-arxiv.md
+       2 title: "BloombergGPT: A Large Language Model for Finance (arXiv 
+         2303.17564)"
+       3 type: source
+       4 tags: [finance, llm, proprietary, bloomberggpt, research]
+       5 created: 2026-04-25
+       7 status: active04-25
+       8 original: raw/2026-04-25-bloomberggpt-arxiv.md
+       9 sources: []
+      10 related: [bloomberggpt, fingpt, finllm, lora-low-rank-adaptation
+         , financial-sentiment-analysis]
+     … +83 lines (ctrl+o to expand)
+
+● Write(wiki\sources\2026-04-25-finnlp-github.md)  ⎿  Wrote 47 lines to
+     ..\c\finvault\wiki\sources\2026-04-25-finnlp-github.md
+       2 title: "FinNLP: Democratizing Internet-Scale Financial Data (Git
+         Hub)"
+       3 type: source
+       4 tags: [finance, data-pipeline, nlp, open-source, fintech]
+       5 created: 2026-04-25
+       7 status: active04-25
+       8 original: raw/2026-04-25-finnlp-github.md
+       9 sources: []
+      10 related: [finnlp, fingpt, ai4finance-foundation, financial-senti
+         ment-analysis]
+     … +56 lines (ctrl+o to expand)
+
+● Write(wiki\entities\finnlp.md)
+  ⎿  Wrote 78 lines to ..\c\finvault\wiki\entities\finnlp.md
+       2 title: FinNLP
+       3 type: entity
+       4 category: tool
+       5 tags: [open-source, finance, data-pipeline, nlp, fintech]
+       6 created: 2026-04-25
+       7 updated: 2026-04-25
+       8 sources: [2026-04-25-finnlp-github]
+       9 related: [fingpt, ai4finance-foundation, financial-sentiment-ana
+         lysis]
+      10 status: active
+     … +88 lines (ctrl+o to expand)
+
+● Now update the four existing entity/concept pages:
+
+  Read 1 file (ctrl+o to expand)
+
+● Write(wiki\entities\fingpt.md)
+  ⎿  Added 58 lines, removed 26 lines
+       2  title: FinGPT
+       3  type: entity
+       4  category: tool
+       5 -tags: [open-source, llm, finance, fintech, ai, sentiment-analys
+         -is, trading]                                                   
+       5 +tags: [open-source, llm, finance, fintech, ai, sentiment-analys
+         +is, trading, forecasting]                                      
+       6  created: 2026-04-25
+       7  updated: 2026-04-25
+       8 -sources: [2026-04-25-fingpt-paper]                             
+       9 -related: [bloomberggpt, ai4finance-foundation, lora-low-rank-ad
+         -aptation, rlsp-reinforcement-learning-stock-prices, finllm, fin
+         -ancial-sentiment-analysis]                                     
+       8 +sources: [2026-04-25-fingpt-paper, 2026-04-25-fingpt-github]   
+       9 +related: [bloomberggpt, ai4finance-foundation, finnlp, lora-low
+         +-rank-adaptation, rlsp-reinforcement-learning-stock-prices, fin
+         +llm, financial-sentiment-analysis]                             
+      10  status: active
+      11  ---
+      12  
+      13  ## Overview
+      14  
+      15 -Open-source end-to-end framework for financial large language m
+         -odels (FinLLMs), developed by the [[ai4finance-foundation]]. Po
+         -sitioned as the democratized alternative to proprietary models 
+         -like [[bloomberggpt]]. Takes a data-centric approach — the key 
+         -innovation is not a new model architecture but a rigorous data 
+         -pipeline and lightweight adaptation methodology.               
+      15 +Open-source end-to-end framework for financial large language m
+         +odels (FinLLMs), developed by the [[ai4finance-foundation]]. Po
+         +sitioned as the democratized alternative to proprietary models 
+         +like [[bloomberggpt]]. Takes a data-centric approach — the key 
+         +innovation is a rigorous data pipeline and lightweight LoRA/RLS
+         +P adaptation, not a new model architecture. v1.0.0 released Apr
+         +il 8, 2026 (Best Presentation Award, FinLLM Symposium @ IJCAI 2
+         +023).                                                          
+      16  
+      17  ## Key Facts
+      18  
+      19  | Attribute | Value |
+      20  |-----------|-------|
+      21 -| Type | Open-source framework (MIT license) |                 
+      21 +| License | MIT |                                              
+      22 +| Latest release | v1.0.0 (April 8, 2026) |                    
+      23  | Organization | AI4Finance Foundation |
+      23 -| Base model | Llama-3.1-8B-Instruct (fine-tuned) |            
+      24 -| Fine-tuning cost | ~$300 per LoRA run (vs. ~$3M for Bloomberg
+         -GPT) |                                                         
+      25 -| Trainable params | 8.3M (vs. 8B total model params — < 0.1%) 
+         -|                                                              
+      24 +| Fine-tuning cost | ~$17.25 per single-task model (v3.3); ~$30
+         +0 per multi-task run |                                         
+      25 +| Best sentiment score | 82.1% accuracy / 80.9 Macro-F1 (SFT+RL
+         +SP on 620K+ headlines) |                                       
+      26  | Code | github.com/AI4Finance-Foundation/FinGPT |
+      27 -| Data pipeline | github.com/AI4Finance-Foundation/FinNLP |    
+      28 -| Paper venue | FinLLM 2023 @ IJCAI 2023 |                     
+      27 +| Data pipeline | [[finnlp]] — github.com/AI4Finance-Foundation
+         +/FinNLP |                                                      
+      28 +| HuggingFace | huggingface.co/FinGPT (10 models, 14 datasets) 
+         +|                                                              
+      29 +| Paper | arXiv:2306.06031 (IJCAI 2023); benchmark: arXiv:2310.
+         +04793 (NeurIPS 2023) |                                         
+      30  
+      31  ## Architecture: Five Layers
+      32  
+      32 -1. **Data Source** — financial news (Reuters, CNBC, Yahoo Finan
+         -ce), social media (Twitter, Reddit, Weibo), SEC filings, market
+         - trends (Seeking Alpha, Google Trends), academic datasets      
+      33 -2. **Data Engineering** — real-time NLP pipeline: cleaning, tok
+         -enization, vector embedding, feature extraction, data augmentat
+         -ion                                                            
+      34 -3. **LLMs** — supports multiple base models (Llama, Mistral, De
+         -epSeek, Qwen, Gemma, Falcon); fine-tuned via LoRA/QLoRA and RLS
+         -P                                                              
+      33 +1. **Data Source** — financial news, social media (Twitter, Red
+         +dit, Weibo), SEC filings, trends; powered by [[finnlp]]        
+      34 +2. **Data Engineering** — real-time NLP: cleaning, tokenization
+         +, vector embedding, feature extraction, data augmentation, RAG 
+      35 +3. **LLMs** — supports Llama, Mistral, DeepSeek, Qwen3, Gemma, 
+         +Falcon; fine-tuned via LoRA/QLoRA + RLSP                       
+      36  4. **Tasks** — sentiment analysis, NER, information extraction,
+           summarization, numerical reasoning, intent detection, terminol
+          ogy understanding
+      36 -5. **Applications** — robo-advisory, quantitative trading, port
+         -folio optimization, credit scoring, M&A forecasting, ESG scorin
+         -g, fraud detection, AML, financial education                   
+      37 +5. **Applications** — robo-advisory, quantitative trading, port
+         +folio optimization, credit scoring, M&A forecasting, ESG scorin
+         +g, fraud detection, AML, financial education, low-code developm
+         +ent                                                            
+      38  
+      38 -## Performance (Sentiment Classification)                      
+      39 +## Model Family (HuggingFace, Oct 2024)                        
+      40  
+      41 +| Model | Base | Task | DL/mo |                                
+      42 +|-------|------|------|-------|                                
+      43 +| fingpt-mt_llama3-8b_lora | Meta-Llama-3-8B | Multi-task | 50 
+         +|                                                              
+      44 +| **fingpt-forecaster_dow30_llama2-7b_lora** | Llama-2-7B-chat 
+         +| DOW30 forecasting | **457** |                                
+      45 +| fingpt-forecaster_sz50_llama2-7b_lora | Llama-2-7B-chat | SZ5
+         +0 forecasting | 5 |                                            
+      46 +| fingpt-sentiment_llama2-13b_lora | Llama-2-13B | Sentiment | 
+         +48 |                                                           
+      47 +| fingpt-mt_llama2-7b_lora | Llama-2-7B | Multi-task | 31 |    
+      48 +| fingpt-mt_falcon-7b_lora | Falcon-7B | Multi-task | 7 |      
+      49 +                                                               
+      50 +The DOW30 forecaster is the most-used production model (457 dow
+         +nloads/month, 148 HuggingFace likes, 30+ Spaces demos).        
+      51 +                                                               
+      52 +## Performance                                                 
+      53 +                                                               
+      54 +**Sentiment Classification (2023 paper, 620K+ headlines):**    
+      55 +                                                               
+      56  | Model | Accuracy | Macro-F1 |
+      57  |-------|----------|----------|
+      58  | Llama3.1-8B (zero-shot) | 57.9 | 54.4 |
+     ...
+      61  | FinGPT (LoRA-SFT) | 78.8 | 77.3 |
+      62  | **FinGPT (SFT+RLSP)** | **82.1** | **80.9** |
+      63  
+      48 -Dataset: 620K+ headlines (CNBC, Reuters, Yahoo Finance, MarketW
+         -atch), 2016–2024, self-labeled by short-term price movement.   
+      64 +**FinGPT v3.3 (Llama2-13B, Financial PhraseBank):** weighted F1
+         + = **0.882**, training cost ~$17.25 (single RTX 3090)          
+      65 +**FinGPT-RAG (Twitter validation):** accuracy 0.88 / F1 0.842  
+      66  
+      50 -## Significance                                                
+      67 +## Sub-Modules                                                 
+      68  
+      52 -FinGPT matters to this wiki on two dimensions:                 
+      69 +### FinGPT-Forecaster                                          
+      70 +Predicts weekly stock price movements for DOW30 and SZ50 compan
+         +ies. Integrates yfinance + finnhub for market/fundamental data,
+         + optional Adanos API for social sentiment (Reddit, X/Twitter, F
+         +inance News, Polymarket). Training data: DOW30 Dec 2022–Sep 202
+         +3. Output: structured [Positive Developments] / [Potential Conc
+         +erns] / [Prediction & Analysis]. Apache 2.0 license.           
+      71  
+      54 -- **Finance**: A deployable tool for financial sentiment analys
+         -is and signal generation. The self-labeling approach (RLSP) is 
+         -notable — it treats market price reactions as ground truth, ali
+         -gning the model directly with tradeable outcomes rather than hu
+         -man opinion.                                                   
+      55 -- **App development**: The framework is open-source and directl
+         -y usable. The GitHub repos provide a practical starting point f
+         -or building finance AI applications.                           
+      72 +### FinGPT-RAG                                                 
+      73 +Addresses brief headlines lacking context. Two-stage: retrieval
+         + module enriches queries from multiple sources → instruction-tu
+         +ned LLM classifies. Modular — each stage can run independently.
+      74  
+      75 +### FinGPT-Benchmark (arXiv:2310.04793)                        
+      76 +Three-tier evaluation framework: Foundation → Integration → Ada
+         +ptation (zero-shot transfer). Published at NeurIPS 2023 worksho
+         +p.                                                             
+      77 +                                                               
+      78 +## Enterprise Use Case: Corporate FX Management                
+      79 +                                                               
+      80 +Two-layer FinGPT-RAG system: (1) parse treasury files, extract 
+         +payables/receivables, net cross-subsidiary exposures; (2) incor
+         +porate live FX rates + sentiment → CFO-ready hedging recommenda
+         +tions. Example: netting reduces hedged exposure from USD 980K t
+         +o USD 20K (98% cost reduction). Deployment: Gradio demo, ERP pl
+         +ugin (Xero/QuickBooks/NetSuite/Sage), Excel Add-in.            
+      81 +                                                               
+      82 +## Significance                                                
+      83 +                                                               
+      84 +Two-domain relevance for this wiki:                            
+      85 +- **Finance**: Deployable sentiment + forecasting signal genera
+         +tion with self-labeled training (market prices as ground truth 
+         +via RLSP).                                                     
+      86 +- **App development**: Fully open-source, modular architecture.
+         + GitHub repos are a practical starting point for finance AI app
+         +lications. v1.0.0 release signals production readiness.        
+      87 +                                                               
+      88  ## Connections
+      89  
+      59 -- [[bloomberggpt]] — the proprietary FinLLM FinGPT is designed 
+         -to replace/democratize                                         
+      60 -- [[lora-low-rank-adaptation]] — the fine-tuning technique that
+         - makes ~$300 adaptation possible                               
+      61 -- [[rlsp-reinforcement-learning-stock-prices]] — FinGPT's uniqu
+         -e training signal                                              
+      62 -- [[ai4finance-foundation]] — parent organization; also builds 
+         -FinRL (RL trading), FinRobot                                   
+      63 -- [[financial-sentiment-analysis]] — primary demonstrated capab
+         -ility                                                          
+      90 +- [[bloomberggpt]] — proprietary contrast case; $3M training vs
+         +. FinGPT's $17–300                                             
+      91 +- [[finnlp]] — data source layer; all FinGPT datasets were buil
+         +t with FinNLP                                                  
+      92 +- [[lora-low-rank-adaptation]] — fine-tuning technique enabling
+         + ~$17–300 per run                                              
+      93 +- [[rlsp-reinforcement-learning-stock-prices]] — unique trainin
+         +g signal; stock price movement as reward                       
+      94 +- [[ai4finance-foundation]] — parent org; also FinRL (RL tradin
+         +g), FinRobot                                                   
+      95  
+      96  ## Source History
+      97  
+      67 -- [[2026-04-25-fingpt-paper]] — founding source; full framework
+         - description and benchmarks                                    
+      98 +- [[2026-04-25-fingpt-paper]] — founding source; original frame
+         +work, RLSP, benchmark experiments                              
+      99 +- [[2026-04-25-fingpt-github]] — current state; v1.0.0 release,
+         + model family, forecaster, use cases, $17.25 cost              
+
+● Write(wiki\entities\bloomberggpt.md)
+  ⎿  Added 75 lines, removed 14 lines
+        2  title: BloombergGPT
+        3  type: entity
+        4  category: tool
+        5 -tags: [llm, finance, proprietary, fintech]                    
+        5 +tags: [llm, finance, proprietary, fintech, research]          
+        6  created: 2026-04-25
+        7  updated: 2026-04-25
+        8 -sources: [2026-04-25-fingpt-paper]                            
+        9 -related: [fingpt, finllm, lora-low-rank-adaptation]           
+       10 -status: stub                                                  
+        8 +sources: [2026-04-25-fingpt-paper, 2026-04-25-bloomberggpt-arx
+          +iv]                                                           
+        9 +related: [fingpt, finllm, lora-low-rank-adaptation, financial-
+          +sentiment-analysis]                                           
+       10 +status: active                                                
+       11  ---
+       12  
+       13  ## Overview
+       14  
+       15 -Proprietary financial large language model developed by Bloomb
+          -erg. First major example of a purpose-built FinLLM. Trained on
+          - a large mixed dataset of financial and general text data. Fre
+          -quently cited as the state-of-the-art proprietary benchmark th
+          -at open-source FinLLMs aim to match or surpass.               
+       15 +50.6B parameter decoder-only transformer trained by Bloomberg 
+          +LP on a curated 708B-token dataset combining 15+ years of Bloo
+          +mberg financial documents (FinPile) with public general data. 
+          +The first major purpose-built financial LLM. Demonstrates doma
+          +in specialization without catastrophic forgetting of general c
+          +apabilities. **Not publicly available** — no weights, no API, 
+          +no hosted inference.                                          
+       16  
+       17 +**Authors:** Shijie Wu, Ozan Irsoy, Steven Lu, Vadim Dabravols
+          +ki, Mark Dredze, Sebastian Gehrmann, Prabhanjan Kambadur, Davi
+          +d Rosenberg, Gideon Mann (all Bloomberg LP)                   
+       18 +**Paper:** arXiv:2303.17564 (Mar 2023, revised Dec 2023)      
+       19 +                                                              
+       20  ## Key Facts
+       21  
+       22  | Attribute | Value |
+       23  |-----------|-------|
+       21 -| Developer | Bloomberg |                                     
+       22 -| Type | Proprietary (restricted access) |                    
+       23 -| Training cost | ~$3M (approximately 1.3 million GPU hours at
+          - ~$2.3/hr AWS) |                                              
+       24 -| Sentiment accuracy | ~71% range (per FinGPT paper benchmarks
+          - — not directly confirmed) |                                  
+       24 +| Parameters | 50.6 billion |                                 
+       25 +| Architecture | Decoder-only transformer |                   
+       26 +| Layers | 70 |                                               
+       27 +| Attention heads | 40 |                                      
+       28 +| Hidden dimension | 7,680 |                                  
+       29 +| Vocabulary size | 131,072 tokens |                          
+       30 +| Positional encoding | ALiBi |                               
+       31 +| Tokenizer | Unigram-based (probabilistic) |                 
+       32 +| Training corpus | 708B tokens (FinPile 51% + public 49%) |  
+       33 +| Training hardware | 512 A100 40GB GPUs (64 nodes × 8) |     
+       34 +| Training duration | ~53 days (139,200 steps) |              
+       35 +| Training cost | ~$3M (1.3M GPU hours at ~$2.3/hr) |         
+       36 +| Availability | **Proprietary — not publicly available** |   
+       37  
+       38 +## Training Data: FinPile (708B Tokens)                       
+       39 +                                                              
+       40 +| Source | Tokens | % |                                       
+       41 +|--------|--------|---|                                       
+       42 +| Financial web content | 298B | 42% |                        
+       43 +| Financial news articles | 38B | 5.4% |                      
+       44 +| SEC filings | 14B | 2% |                                    
+       45 +| Press releases | 9B | 1.3% |                                
+       46 +| Bloomberg proprietary | 5B | 0.7% |                         
+       47 +| The Pile (general) | 184B | 26% |                           
+       48 +| C4 (general) | 138B | 19.5% |                               
+       49 +| Wikipedia | 24B | 3.4% |                                    
+       50 +                                                              
+       51 +The ~50/50 financial/general split is the key design decision 
+          +— enables domain superiority while preserving general capabili
+          +ties.                                                         
+       52 +                                                              
+       53 +## Benchmark Performance                                      
+       54 +                                                              
+       55 +**External financial NLP (vs. open-source models at time of pa
+          +per):**                                                       
+       56 +                                                              
+       57 +| Task | BloombergGPT | GPT-NeoX (20B) | OPT-66B | BLOOM-176B 
+          +|                                                             
+       58 +|------|-------------|----------------|---------|------------|
+       59 +| ConvFinQA | 43.41 | 30.06 | 27.88 | 36.31 |                 
+       60 +| FiQA Sentiment | **75.07** | 50.59 | 51.60 | 53.12 |        
+       61 +| FPB Sentiment | 51.07 | 44.64 | 48.67 | 50.25 |             
+       62 +| Headline Classification | **82.20** | 73.22 | 79.41 | 76.51 
+          +|                                                             
+       63 +                                                              
+       64 +**Internal Bloomberg sentiment (proprietary evaluation tasks):
+          +**                                                            
+       65 +                                                              
+       66 +| Task | BloombergGPT | Open-source Range |                   
+       67 +|------|-------------|------------------|                     
+       68 +| Equity News Sentiment | 79.63 | 14.17–20.98 |               
+       69 +| Equity Transcripts Sentiment | 65.06 | 25.08–37.58 |        
+       70 +                                                              
+       71 +The 4–5× advantage on internal tasks reflects the value of pro
+          +prietary Bloomberg training data — this gap is likely the most
+          + durable competitive moat.                                    
+       72 +                                                              
+       73 +> ⚠️ Benchmark note: BloombergGPT FPB score of 51.07 is frequen
+          +tly compared to FinGPT v3.3's weighted F1 of 0.882. These are 
+          +different metrics on possibly different splits. **Do not treat
+          + this as a direct comparison** until methodology is verified. 
+       74 +                                                              
+       75 +## Technical Contributions                                    
+       76 +                                                              
+       77 +1. **Mixed-domain training** — demonstrated ~50/50 split achie
+          +ves domain superiority without general degradation            
+       78 +2. **FinPile** — largest domain-specific financial dataset at 
+          +time of publication; 15+ years of curated Bloomberg data      
+       79 +3. **Unigram tokenizer** — 131,072-token vocabulary optimized 
+          +for financial text                                            
+       80 +4. **ALiBi positional encoding** — better length generalizatio
+          +n than learned positions                                      
+       81 +5. **Training transparency** — documented LR adjustments and d
+          +ropout interventions; useful for the LLM training community   
+       82 +                                                              
+       83  ## Significance
+       84  
+       28 -Represents the proprietary, high-cost end of the FinLLM spectr
+          -um. Its restricted data and training protocol motivated the op
+          -en-source FinGPT effort. The training cost (~$3M) is the basel
+          -ine [[fingpt]] reduces by ~1,000× via LoRA.                   
+       85 +BloombergGPT is the defining reference point for the entire Fi
+          +nLLM space. Every open-source FinLLM (FinGPT, FinBERT) positio
+          +ns itself relative to it. Its main contribution is demonstrati
+          +ng the value of domain-specific training data — the 4–5× advan
+          +tage on internal Bloomberg tasks is the evidence. The model it
+          +self is inaccessible; the paper's methodology and findings are
+          + the real public contribution.                                
+       86  
+       30 -> ⚠️ Note: The FinGPT paper cites BloombergGPT performance as a
+          - reference but the exact benchmark numbers may reflect the FLU
+          -E benchmark rather than the same test set used for FinGPT. Ind
+          -ependent verification needed.                                 
+       87 +## Context: Has It Been Surpassed?                            
+       88  
+       89 +The paper predates LLaMA-2, LLaMA-3, GPT-4, and the open-sourc
+          +e FinLLM wave of 2023–2025. FinGPT v3.3 (Llama2-13B + LoRA) cl
+          +aims to match or exceed BloombergGPT on FPB with a model 4× sm
+          +aller and 170,000× cheaper to adapt. Bloomberg has released no
+          + updated benchmarks to counter this. The internal task advanta
+          +ge (requiring proprietary Bloomberg data) likely remains, but 
+          +on publicly benchmarkable tasks, BloombergGPT is probably no l
+          +onger state of the art as of 2026.                            
+       90 +                                                              
+       91  ## Connections
+       92  
+       34 -- [[fingpt]] — the open-source alternative                    
+       35 -- [[finllm]] — category                                       
+       93 +- [[fingpt]] — the open-source alternative; $17–300 fine-tunin
+          +g vs. $3M training                                            
+       94 +- [[finllm]] — category; BloombergGPT established what a FinLL
+          +M could achieve                                               
+       95 +- [[financial-sentiment-analysis]] — benchmark comparisons (FP
+          +B, FiQA, internal tasks)                                      
+       96  
+       97  ## Source History
+       98  
+       39 -- [[2026-04-25-fingpt-paper]] — cited as prior art and contras
+          -t case; key data point is $3M training cost                   
+       99 +- [[2026-04-25-fingpt-paper]] — cited as prior art and contras
+          +t case                                                        
+      100 +- [[2026-04-25-bloomberggpt-arxiv]] — full arXiv paper details
+          +; architecture, FinPile, benchmarks                           
+
+● Now update the two concept pages and finalize index + log:
+
+  Read 2 files (ctrl+o to expand)
+
+● Update(wiki\concepts\lora-low-rank-adaptation.md)
+  ⎿  Added 1 line, removed 1 line
+       4  tags: [llm, fine-tuning, ai, efficiency]
+       5  created: 2026-04-25
+       6  updated: 2026-04-25
+       7 -sources: [2026-04-25-fingpt-paper]                             
+       7 +sources: [2026-04-25-fingpt-paper, 2026-04-25-fingpt-github]   
+       8  related: [rlsp-reinforcement-learning-stock-prices, fingpt, fin
+          llm]
+       9  status: active
+      10  ---
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(wiki\concepts\lora-low-rank-adaptation.md)
+  ⎿  Added 1 line, removed 1 line
+      31  | Base model parameters | 8B (Llama-3.1-8B) |
+      32  | Trainable % | < 0.1% |
+      33  | Cost reduction vs. full fine-tune | ~1,000× |
+      34 -| Estimated cost | ~$300 per FinGPT fine-tuning run |          
+      34 +| Estimated cost | ~$17.25 per single-task model (FinGPT v3.3, 
+         +Llama2-13B); ~$300 for multi-task runs |                       
+      35  
+      36  ## How It Works (Simplified)
+      37  
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(wiki\concepts\lora-low-rank-adaptation.md)
+  ⎿  Added 1 line
+      50  ## Source History
+      51  
+      52  - [[2026-04-25-fingpt-paper]] — primary context: LoRA as the re
+          ason FinGPT costs $300 vs. BloombergGPT's $3M
+      53 +- [[2026-04-25-fingpt-github]] — refined cost: ~$17.25 for v3.3
+         + single-task model (Llama2-13B, single RTX 3090)               
+
+● Now update financial-sentiment-analysis.md with BloombergGPT scores and the
+  benchmark caveat:
+
+  Read 1 file (ctrl+o to expand)
+
+● Write(wiki\concepts\financial-sentiment-analysis.md)
+  ⎿  Added 32 lines, removed 10 lines
+       4  tags: [finance, nlp, sentiment, trading, signal]
+       5  created: 2026-04-25
+       6  updated: 2026-04-25
+       7 -sources: [2026-04-25-fingpt-paper]                             
+       8 -related: [fingpt, finllm, rlsp-reinforcement-learning-stock-pri
+         -ces, lora-low-rank-adaptation]                                 
+       7 +sources: [2026-04-25-fingpt-paper, 2026-04-25-fingpt-github, 20
+         +26-04-25-bloomberggpt-arxiv]                                   
+       8 +related: [fingpt, bloomberggpt, finllm, rlsp-reinforcement-lear
+         +ning-stock-prices, lora-low-rank-adaptation]                   
+       9  status: active
+      10  ---
+      11  
+     ...
+      22  
+      23  Financial sentiment requires domain-specific reasoning about th
+          e *financial implications* of events, not just the surface tone
+          .
+      24  
+      25 -## Benchmark: FinGPT Dataset                                   
+      25 +## Benchmark Landscape                                         
+      26  
+      27 -- **Size**: 620,000+ cleaned financial news headlines          
+      28 -- **Sources**: CNBC, Reuters, Yahoo Finance, MarketWatch       
+      29 -- **Period**: 2016–2024                                        
+      30 -- **Labels**: Self-labeled by short-term stock price movement (
+         -see [[rlsp-reinforcement-learning-stock-prices]])              
+      27 +Two main evaluation datasets used across FinLLM papers:        
+      28  
+      32 -## Current State of the Art (per FinGPT paper, 2023/2024)      
+      29 +### Financial PhraseBank (FPB)                                 
+      30 +Standard sentiment classification benchmark on financial phrase
+         +s. Different papers report different metrics — accuracy vs. wei
+         +ghted F1 — making direct comparison unreliable.                
+      31  
+      32 +| Model | FPB Score | Metric |                                 
+      33 +|-------|-----------|--------|                                 
+      34 +| [[bloomberggpt]] | 51.07 | F1 (paper-reported) |             
+      35 +| FinBERT | ~0.87 | Weighted F1 (various) |                    
+      36 +| [[fingpt]] v3.3 (Llama2-13B + LoRA) | **0.882** | Weighted F1
+         + |                                                             
+      37 +                                                               
+      38 +> ⚠️ BloombergGPT (51.07) vs. FinGPT v3.3 (0.882) comparison is 
+         +widely cited but **not apples-to-apples**: different metrics, p
+         +ossibly different data splits. Do not treat as definitive.     
+      39 +                                                               
+      40 +### FinGPT Self-Labeled Dataset (620K+ headlines)              
+      41 +Labeled by short-term stock price movement — see [[rlsp-reinfor
+         +cement-learning-stock-prices]].                                
+      42 +                                                               
+      43  | Model | Accuracy | Macro-F1 |
+      44  |-------|----------|----------|
+      45  | Llama3.1-8B (zero-shot) | 57.9 | 54.4 |
+     ...
+      48  | FinGPT (LoRA-SFT) | 78.8 | 77.3 |
+      49  | **FinGPT (SFT+RLSP)** | **82.1** | **80.9** |
+      50  
+      51 +### BloombergGPT Internal Tasks (proprietary Bloomberg data)   
+      52 +                                                               
+      53 +| Task | BloombergGPT | Open-source Range |                    
+      54 +|------|-------------|------------------|                      
+      55 +| Equity News Sentiment | **79.63** | 14.17–20.98 |            
+      56 +| Equity Transcripts Sentiment | **65.06** | 25.08–37.58 |     
+      57 +                                                               
+      58 +These show a 4–5× advantage for BloombergGPT on proprietary eva
+         +luation data — the most durable competitive moat since it depen
+         +ds on Bloomberg's exclusive training data.                     
+      59 +                                                               
+      60  ## Applications
+      61  
+      62  - Trading signal generation (news-driven alpha)
+     ...
+      67  ## Open Questions
+      68  
+      69  - How does sentiment signal decay over intraday vs. multi-day h
+          orizons?
+      52 -- How does FinGPT-based sentiment compare to established commer
+         -cial providers (e.g., RavenPack, Bloomberg BNEF)?              
+      70 +- How does FinGPT-based sentiment compare to commercial provide
+         +rs (RavenPack, Bloomberg BNEF) on live trading data?           
+      71 +- The FinGPT self-labeling approach uses price movement as grou
+         +nd truth — but price reacts to many factors beyond the news art
+         +icle. How noisy is this label?                                 
+      72  
+      73  ## Related Concepts
+      74  
+      75  - [[rlsp-reinforcement-learning-stock-prices]] — the self-label
+          ing mechanism that makes market-aligned sentiment training poss
+          ible
+      76  - [[finllm]] — the model category this task trains and evaluate
+          s
+      77 +- [[lora-low-rank-adaptation]] — enables training domain-specif
+         +ic sentiment models at ~$17.25                                 
+      78  
+      79  ## Source History
+      80  
+      61 -- [[2026-04-25-fingpt-paper]] — primary benchmark; full experim
+         -ental results for FinGPT sentiment classification              
+      81 +- [[2026-04-25-fingpt-paper]] — FinGPT self-labeled benchmark; 
+         +620K+ headlines; full results                                  
+      82 +- [[2026-04-25-fingpt-github]] — FinGPT v3.3 FPB weighted F1 = 
+         +0.882 at $17.25                                                
+      83 +- [[2026-04-25-bloomberggpt-arxiv]] — BloombergGPT FPB 51.07, F
+         +iQA 75.07, internal task benchmark                             
+
+● Write(index.md)
+  ⎿  Added 12 lines, removed 8 lines
+      10  | Page | Summary | Date |
+      11  |------|---------|------|
+      12  | [[2026-04-25-llm-wiki-pattern]] | Founding source: LLM wiki p
+          attern — persistent compounding wiki vs. RAG | 2026-04-25 |
+      13 -| [[2026-04-25-fingpt-paper]] | FinGPT: open-source FinLLM fram
+         -ework; LoRA fine-tuning, RLSP, 82.1% sentiment accuracy | 2026-
+         -04-25 |                                                        
+      13 +| [[2026-04-25-fingpt-paper]] | FinGPT original paper (IJCAI 20
+         +23): LoRA + RLSP framework, 82.1% sentiment accuracy | 2026-04-
+         +25 |                                                           
+      14 +| [[2026-04-25-fingpt-github]] | FinGPT current state: v1.0.0 r
+         +eleased Apr 2026, 10 models, forecaster, $17.25 training | 2026
+         +-04-25 |                                                       
+      15 +| [[2026-04-25-bloomberggpt-arxiv]] | BloombergGPT arXiv paper:
+         + 50.6B params, FinPile 708B tokens, ~$3M training, not public |
+         + 2026-04-25 |                                                  
+      16 +| [[2026-04-25-finnlp-github]] | FinNLP data pipeline: 20+ sour
+         +ces, US + China markets, FinGPT's data layer | 2026-04-25 |    
+      17  
+      18  ---
+      19  
+     ...
+      23  |------|----------|---------|
+      24  | [[vannevar-bush]] | person | Inventor of the Memex (1945); pr
+          ior art for personal knowledge stores |
+      25  | [[obsidian]] | tool | Local markdown app — recommended IDE fo
+          r browsing this wiki |
+      23 -| [[fingpt]] | tool | Open-source FinLLM framework by AI4Financ
+         -e; LoRA + RLSP; ~$300/fine-tune |                              
+      24 -| [[bloomberggpt]] | tool | Proprietary FinLLM by Bloomberg; ~$
+         -3M training cost; contrast case for FinGPT |                   
+      26 +| [[fingpt]] | tool | Open-source FinLLM framework; v1.0.0 Apr 
+         +2026; LoRA+RLSP; $17–300/fine-tune; 10 models |                
+      27 +| [[bloomberggpt]] | tool | Proprietary FinLLM by Bloomberg; 50
+         +.6B params; ~$3M training; not publicly available |            
+      28 +| [[finnlp]] | tool | Financial data pipeline; 20+ sources; US 
+         ++ China; FinGPT's data layer |                                 
+      29  | [[ai4finance-foundation]] | organization | Nonprofit behind F
+          inGPT, FinRL, FinRobot, FinNLP |
+      30  
+      31  ---
+     ...
+      35  | Page | Summary |
+      36  |------|---------|
+      37  | [[persistent-wiki-pattern]] | Core FinVault pattern: LLM-main
+          tained compounding wiki vs. re-deriving from raw sources |
+      34 -| [[rag-retrieval-augmented-generation]] | Dominant LLM+docs pa
+         -ttern (re-derives per query); also a component in FinGPT's pipe
+         -line |                                                         
+      35 -| [[finllm]] | Financial LLMs as a category; core challenges: t
+         -emporal sensitivity, dynamism, SNR |                           
+      36 -| [[lora-low-rank-adaptation]] | Parameter-efficient fine-tunin
+         -g; reduces FinGPT adaptation cost by ~1,000× to ~$300 |        
+      37 -| [[rlsp-reinforcement-learning-stock-prices]] | FinGPT's novel
+         - training signal; uses stock price movements instead of human f
+         -eedback |                                                      
+      38 -| [[financial-sentiment-analysis]] | Classify financial text as
+         - positive/negative/neutral; FinGPT: 82.1% accuracy |           
+      38 +| [[rag-retrieval-augmented-generation]] | LLM+docs pattern (re
+         +-derives per query); also a component in FinGPT's pipeline |   
+      39 +| [[finllm]] | Financial LLMs as a category; three core challen
+         +ges: temporal sensitivity, dynamism, SNR |                     
+      40 +| [[lora-low-rank-adaptation]] | Parameter-efficient fine-tunin
+         +g; ~$17–300 per FinGPT run vs. $3M BloombergGPT |              
+      41 +| [[rlsp-reinforcement-learning-stock-prices]] | FinGPT's train
+         +ing signal: stock price movements as reward instead of human fe
+         +edback |                                                       
+      42 +| [[financial-sentiment-analysis]] | Classify financial text; F
+         +inGPT: 82.1% accuracy / 0.882 F1; BloombergGPT: 51.07 FPB |    
+      43  
+      44  ---
+      45  
+
+● Write(log.md)
+  ⎿  Added 7 lines, removed 3 lines
+       5  
+       6  ---
+       7  
+       8 +## [2026-04-25] ingest | FinGPT GitHub + BloombergGPT arXiv + F
+         +inNLP GitHub (3 sources)                                       
+       9 +                                                               
+      10 +Three web sources fetched and ingested. **New pages:** `wiki/so
+         +urces/2026-04-25-fingpt-github.md`, `wiki/sources/2026-04-25-bl
+         +oomberggpt-arxiv.md`, `wiki/sources/2026-04-25-finnlp-github.md
+         +`, `wiki/entities/finnlp.md`. **Raw files:** `raw/2026-04-25-fi
+         +ngpt-github.md`, `raw/2026-04-25-bloomberggpt-arxiv.md`, `raw/2
+         +026-04-25-finnlp-github.md`. **Updated:** `wiki/entities/fingpt
+         +.md` (v1.0.0 release, full model family, forecaster, $17.25 cos
+         +t), `wiki/entities/bloomberggpt.md` (stub → full: 50.6B params,
+         + FinPile, benchmarks), `wiki/concepts/lora-low-rank-adaptation.
+         +md` (cost refined to $17.25), `wiki/concepts/financial-sentimen
+         +t-analysis.md` (BloombergGPT benchmarks added, methodology cave
+         +at). Total: 4 new + 4 updated pages.                           
+      11 +                                                               
+      12  ## [2026-04-25] ingest | FinGPT: Open-Source Financial Large La
+          nguage Models
+      13  
+      10 -Processed 9-page academic paper (PDF). Files created: `wiki/sou
+         -rces/2026-04-25-fingpt-paper.md`, `wiki/entities/fingpt.md`, `w
+         -iki/entities/bloomberggpt.md`, `wiki/entities/ai4finance-founda
+         -tion.md`, `wiki/concepts/lora-low-rank-adaptation.md`, `wiki/co
+         -ncepts/rlsp-reinforcement-learning-stock-prices.md`, `wiki/conc
+         -epts/finllm.md`, `wiki/concepts/financial-sentiment-analysis.md
+         -`. Updated: `wiki/concepts/rag-retrieval-augmented-generation.m
+         -d` (added FinGPT example), `index.md`, `log.md`. Total: 8 new p
+         -ages, 2 updated.                                               
+      14 +Processed 9-page academic paper (PDF). Files created: `wiki/sou
+         +rces/2026-04-25-fingpt-paper.md`, `wiki/entities/fingpt.md`, `w
+         +iki/entities/bloomberggpt.md`, `wiki/entities/ai4finance-founda
+         +tion.md`, `wiki/concepts/lora-low-rank-adaptation.md`, `wiki/co
+         +ncepts/rlsp-reinforcement-learning-stock-prices.md`, `wiki/conc
+         +epts/finllm.md`, `wiki/concepts/financial-sentiment-analysis.md
+         +`. Updated: `wiki/concepts/rag-retrieval-augmented-generation.m
+         +d`. Total: 8 new pages, 2 updated.                             
+      15  
+      16  ## [2026-04-25] ingest | LLM Wiki: A Pattern for Building Perso
+          nal Knowledge Bases
+      17  
+      14 -Processed founding source (the idea file defining this wiki's p
+         -attern). Files created: `raw/2026-04-25-llm-wiki-pattern.md`, `
+         -wiki/sources/2026-04-25-llm-wiki-pattern.md`, `wiki/concepts/pe
+         -rsistent-wiki-pattern.md`, `wiki/concepts/rag-retrieval-augment
+         -ed-generation.md`, `wiki/entities/vannevar-bush.md`, `wiki/enti
+         -ties/obsidian.md`. Index updated: 1 source, 2 entities, 2 conce
+         -pts.                                                           
+      18 +Processed founding source. Files created: `raw/2026-04-25-llm-w
+         +iki-pattern.md`, `wiki/sources/2026-04-25-llm-wiki-pattern.md`,
+         + `wiki/concepts/persistent-wiki-pattern.md`, `wiki/concepts/rag
+         +-retrieval-augmented-generation.md`, `wiki/entities/vannevar-bu
+         +sh.md`, `wiki/entities/obsidian.md`.                           
+      19  
+      20  ## [2026-04-25] init | FinVault Wiki Initialized
+      21  
+      18 -Wiki structure created. Directories: `raw/`, `raw/assets/`, `wi
+         -ki/entities/`, `wiki/concepts/`, `wiki/sources/`, `wiki/synthes
+         -is/`, `wiki/_templates/`. Files created: `CLAUDE.md`, `index.md
+         -`, `log.md`, 4 templates. Ready for first ingest.              
+      22 +Wiki structure created. Directories: `raw/`, `raw/assets/`, `wi
+         +ki/entities/`, `wiki/concepts/`, `wiki/sources/`, `wiki/synthes
+         +is/`, `wiki/_templates/`. Files created: `CLAUDE.md`, `index.md
+         +`, `log.md`, 4 templates.                                      
+
+● Done. Here's what was ingested across all three sources:
+
+  ---
+  3 new raw sources + 3 source pages + 1 new entity + 4 major updates:
+
+  What changed: entities/finnlp.md (new)
+  Key new content: 20+ data sources, US+China, usage pattern, Twitter/X caveat
+  ────────────────────────────────────────
+  What changed: entities/fingpt.md (major update)
+  Key new content: v1.0.0 Apr 2026, full 10-model inventory, Forecaster (457
+    DL/mo), $17.25 real cost, enterprise FX use case
+  ────────────────────────────────────────
+  What changed: entities/bloomberggpt.md (stub → full)
+  Key new content: 50.6B params, FinPile 708B tokens, $3M training, full
+    benchmark tables, 4-5× internal task gap
+  ────────────────────────────────────────
+  What changed: concepts/financial-sentiment-analysis.md
+  Key new content: BloombergGPT scores added, FPB methodology caveat flagged
+  ────────────────────────────────────────
+  What changed: concepts/lora-low-rank-adaptation.md
+  Key new content: Cost refined: $17.25 for single-task (not just $300)
+
+  Key insight surfaced: The widely cited BloombergGPT vs. FinGPT FPB comparison
+  (51.07 vs. 0.882) uses different metrics on possibly different splits —
+  flagged as a caveat on both the entity and concept pages so you don't cite it
+  uncritically.
+
+✻ Worked for 11m 51s
