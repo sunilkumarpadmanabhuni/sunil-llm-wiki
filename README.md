@@ -1,4 +1,3 @@
-==========================================================
 Install obsidian. -> Create vault folder with a vault name. ex: c:\finvault
 Open finvault with VS Code
 Use terminal to open the claude code.
@@ -9,4 +8,3 @@ Press enter for claude to proceed.
 --Claude code asked few things - based on the file it was asking for domain.
 |---What is this wiki's primary domain? (This shapes entity categories, page templates, and ingest workflows in CLAUDE.md) → All of the above but mostly intreseted in developing apps or mostly finance too. It is actually my second brain too. 
 1st Checkpoint Prompt is in "2026-04-25-002646-llm-wiki.txt"
-==========================================================
