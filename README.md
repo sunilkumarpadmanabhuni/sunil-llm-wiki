@@ -7,4 +7,14 @@ Press New line to paste below text.
 Press enter for claude to proceed. 
 --Claude code asked few things - based on the file it was asking for domain.
 |---What is this wiki's primary domain? (This shapes entity categories, page templates, and ingest workflows in CLAUDE.md) → All of the above but mostly intreseted in developing apps or mostly finance too. It is actually my second brain too. 
+
 1st Checkpoint Prompt is in "2026-04-25-002646-llm-wiki.txt"
+---
+Either use obsidian web clipper in chrome extension to extract the content of a webpage or add a pdf to raw/assets folder
+I have added a pdf for fingpt llm pdf file. attached in this repo. "FinGPT-Paper.pdf"
+
+Use below prompt
+
+Awesome. I just threw a pdf called FinGPT-Paper.pdf into the raw. Can you please go ahead and ingest that?
+---
+
