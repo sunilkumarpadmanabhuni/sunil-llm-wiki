@@ -1,0 +1,439 @@
+╭─── Claude Code v2.1.114 ─────────────────────────────────────────────────────╮
+│                                    │ Tips for getting started                │
+│            Welcome back!           │ ✔ Run /init to create a CLAUDE.md file… │
+│                                    │ ─────────────────────────────────────── │
+│               ▐▛███▜▌              │ Recent activity                         │
+│              ▝▜█████▛▘             │ No recent activity                      │
+│                ▘▘ ▝▝               │                                         │
+│                                    │                                         │
+│   Sonnet 4.6 · API Usage Billing   │                                         │
+│            C:\finvault             │                                         │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+❯ LLM Wiki                                                                      
+  A pattern for building personal knowledge bases using LLMs.                   
+                                                                                
+  This is an idea file, it is designed to be copy pasted to your own LLM Agent  
+  (e.g. OpenAI Codex, Claude Code, OpenCode / Pi, or etc.). Its goal is to      
+  communicate the high level idea, but your agent will build out the specifics  
+  in collaboration with you.                                                    
+                                                                                
+  The core idea                                                                 
+  Most people's experience with LLMs and documents looks like RAG: you upload a 
+   collection of files, the LLM retrieves relevant chunks at query time, and    
+  generates an answer. This works, but the LLM is rediscovering knowledge from  
+  scratch on every question. There's no accumulation. Ask a subtle question     
+  that requires synthesizing five documents, and the LLM has to find and piece  
+  together the relevant fragments every time. Nothing is built up. NotebookLM,  
+  ChatGPT file uploads, and most RAG systems work this way.                     
+                                                                                
+  The idea here is different. Instead of just retrieving from raw documents at  
+  query time, the LLM incrementally builds and maintains a persistent wiki — a  
+  structured, interlinked collection of markdown files that sits between you    
+  and the raw sources. When you add a new source, the LLM doesn't just index it 
+   for later retrieval. It reads it, extracts the key information, and          
+  integrates it into the existing wiki — updating entity pages, revising topic  
+  summaries, noting where new data contradicts old claims, strengthening or     
+  challenging the evolving synthesis. The knowledge is compiled once and then   
+  kept current, not re-derived on every query.                                  
+                                                                                
+  This is the key difference: the wiki is a persistent, compounding artifact.   
+  The cross-references are already there. The contradictions have already been  
+  flagged. The synthesis already reflects everything you've read. The wiki      
+  keeps getting richer with every source you add and every question you ask.    
+                                                                                
+  You never (or rarely) write the wiki yourself — the LLM writes and maintains  
+  all of it. You're in charge of sourcing, exploration, and asking the right    
+  questions. The LLM does all the grunt work — the summarizing,                 
+  cross-referencing, filing, and bookkeeping that makes a knowledge base        
+  actually useful over time. In practice, I have the LLM agent open on one side 
+   and Obsidian open on the other. The LLM makes edits based on our             
+  conversation, and I browse the results in real time — following links,        
+  checking the graph view, reading the updated pages. Obsidian is the IDE; the  
+  LLM is the programmer; the wiki is the codebase.                              
+                                                                                
+  This can apply to a lot of different contexts. A few examples:                
+                                                                                
+  Perso                                                                         
+  ──── (36 lines hidden) ────────────────────────────────────────────────────── 
+  er. If your LLM adds YAML frontmatter to wiki pages (tags, dates, source      
+  counts), Dataview can generate dynamic tables and lists.                      
+  The wiki is just a git repo of markdown files. You get version history,       
+  branching, and collaboration for free.                                        
+  Why this works                                                                
+  The tedious part of maintaining a knowledge base is not the reading or the    
+  thinking — it's the bookkeeping. Updating cross-references, keeping summaries 
+   current, noting when new data contradicts old claims, maintaining            
+  consistency across dozens of pages. Humans abandon wikis because the          
+  maintenance burden grows faster than the value. LLMs don't get bored, don't   
+  forget to update a cross-reference, and can touch 15 files in one pass. The   
+  wiki stays maintained because the cost of maintenance is near zero.           
+                                                                                
+  The human's job is to curate sources, direct the analysis, ask good           
+  questions, and think about what it all means. The LLM's job is everything     
+  else.                                                                         
+                                                                                
+  The idea is related in spirit to Vannevar Bush's Memex (1945) — a personal,   
+  curated knowledge store with associative trails between documents. Bush's     
+  vision was closer to this than to what the web became: private, actively      
+  curated, with the connections between documents as valuable as the documents  
+  themselves. The part he couldn't solve was who does the maintenance. The LLM  
+  handles that.                                                                 
+                                                                                
+  Note                                                                          
+  This document is intentionally abstract. It describes the idea, not a         
+  specific implementation. The exact directory structure, the schema            
+  conventions, the page formats, the tooling — all of that will depend on your  
+  domain, your preferences, and your LLM of choice. Everything mentioned above  
+  is optional and modular — pick what's useful, ignore what isn't. For example: 
+   your sources might be text-only, so you don't need image handling at all.    
+  Your wiki might be small enough that the index file is all you need, no       
+  search engine required. You might not care about slide decks and just want    
+  markdown pages. You might want a completely different set of output formats.  
+  The right way to use this is to share it with your LLM agent and work         
+  together to instantiate a version that fits your needs. The document's only   
+  job is to communicate the pattern. Your LLM can figure out the rest.          
+  You are now my LLM Wiki agent. Implement this exact idea file as my complete  
+  second brain. Guide me step-by-step: create the CLAUDE.md schema file with    
+  full rules, set up index.md and log.md, define folder conventions, and show   
+  me the first ingest example. From now on, every interaction follows the       
+  schema.                                                                       
+
+● Let me check what's already in your working directory before setting anything
+  up.
+
+  Listed 1 directory (ctrl+o to expand)
+
+● Obsidian is already configured here. Let me read the existing files to inform
+  the setup.
+
+  Read 1 file, listed 1 directory (ctrl+o to expand)
+
+● Fresh Obsidian vault, perfect foundation. One question before I write the
+  schema — the vault name "finvault" suggests finance/investing, but I want to
+  confirm the domain so CLAUDE.md is properly tailored.
+
+● User answered Claude's questions:
+  ⎿  · What is this wiki's primary domain? (This shapes entity categories, page 
+     templates, and ingest workflows in CLAUDE.md) → All of the above but mostly
+      intreseted in developing apps or mostly finance too. It is actually my 
+     second brain too.
+
+● Perfect — a multi-domain second brain covering finance, app development, and
+  general knowledge. I'll now build the full structure: directories, CLAUDE.md
+  schema, index.md, log.md, and starter templates. Creating everything in
+  parallel.
+
+● Bash(mkdir -p /c/finvault/raw/assets /c/finvault/wiki/entities
+      /c/finvault/wiki/concepts /c/finvault/wiki/sources
+      /c/finvault/wiki/synthesis /c/finvault/wiki/_templa…)
+  ⎿  dirs created
+
+● Write(CLAUDE.md)
+  ⎿  Wrote 338 lines to ..\c\finvault\CLAUDE.md
+      1 # FinVault — Wiki Schema & Agent Rules
+      2 
+      3 version: 1.0  
+      4 created: 2026-04-25  
+      5 domains: finance/investing, app development, personal knowledge
+      6 
+      7 ---
+      8 
+      9 ## Your Role
+     … +374 lines (ctrl+o to expand)
+
+● Write(index.md)
+  ⎿  Wrote 37 lines to ..\c\finvault\index.md
+      2 # FinVault Index
+      3 > Master catalog of all wiki pages. Maintained by the wiki agent 
+        — updated after every ingest, query, or add operation.
+      4 > 
+      5 > To find relevant pages: scan this file first, then read the lin
+        ked pages. Use Obsidian's graph view to explore connections.
+      6 
+      7 ---
+      8 
+      9 ## Sources
+     … +29 lines (ctrl+o to expand)
+
+● Write(log.md)
+  ⎿  Wrote 10 lines to ..\c\finvault\log.md
+       2 # FinVault Log
+       3 > Append-only. New entries at the top. Format: `## [YYYY-MM-DD] 
+       4 > Quick parse: `grep "^## \[" log.md | head -10`
+       5 
+       6 ---
+       8 ## [2026-04-25] init | FinVault Wiki Initialized
+       9 
+         i/entities/`, `wiki/concepts/`, `wiki/sources/`, `wiki/synthesis
+         /`, `wiki/_templates/`. Files created: `CLAUDE.md`, `index.md`, 
+         `log.md`. Ready for first ingest.
+     … +4 lines (ctrl+o to expand)
+
+● Now the starter templates in wiki/_templates/:
+
+● Write(wiki\_templates\source.md)
+  ⎿  Wrote 33 lines to ..\c\finvault\wiki\_templates\source.md
+       1 ---
+       2 title: 
+       3 type: source
+       4 tags: []
+       5 created: YYYY-MM-DD
+       6 updated: YYYY-MM-DD
+       7 status: active
+       8 original: raw/
+       9 sources: []
+      10 related: []
+     … +23 lines (ctrl+o to expand)
+
+● Write(wiki\_templates\entity.md)
+  ⎿  Wrote 27 lines to ..\c\finvault\wiki\_templates\entity.md
+       1 ---
+       2 title: 
+       3 type: entity
+       4 category: 
+       5 tags: []
+       6 created: YYYY-MM-DD
+       7 updated: YYYY-MM-DD
+       8 sources: []
+       9 related: []
+      10 status: stub
+     … +17 lines (ctrl+o to expand)
+
+● Write(wiki\_templates\concept.md)
+  ⎿  Wrote 24 lines to ..\c\finvault\wiki\_templates\concept.md
+       1 ---
+       2 title: 
+       3 type: concept
+       4 tags: []
+       5 created: YYYY-MM-DD
+       6 updated: YYYY-MM-DD
+       7 sources: []
+       8 related: []
+       9 status: stub
+      10 ---
+     … +14 lines (ctrl+o to expand)
+
+● Write(wiki\_templates\synthesis.md)
+  ⎿  Wrote 25 lines to ..\c\finvault\wiki\_templates\synthesis.md
+       1 ---
+       2 title: 
+       3 type: synthesis
+       4 tags: []
+       5 created: YYYY-MM-DD
+       6 updated: YYYY-MM-DD
+       7 sources: []
+       8 related: []
+       9 status: active
+      10 ---
+     … +15 lines (ctrl+o to expand)
+
+● Now a demo ingest to show you exactly how it works. I'll create a worked
+  example using the idea file you just shared as the first source:
+
+● Write(raw\2026-04-25-llm-wiki-pattern.md)
+  ⎿  Wrote 17 lines to ..\c\finvault\raw\2026-04-25-llm-wiki-pattern.md
+        g LLMsWiki — A Pattern for Building Personal Knowledge Bases Usin
+      3 Source: idea file shared on 2026-04-25
+      5 The core idea: instead of RAG (retrieval at query time), build a 
+        persistent, LLM-maintained wiki that compiles and synthesizes kno
+        ; the human curates sources and asks questions.ins all wiki pages
+      7 Three layers: raw sources (immutable), the wiki (LLM-maintained m
+        arkdown), and the schema (CLAUDE.md / AGENTS.md — the configurati
+      8 on that makes the LLM a disciplined maintainer).
+        answer questions from wiki, file good answers back), Lint (health
+        -check for contradictio
+     … +22 lines (ctrl+o to expand)
+
+● Write(wiki\sources\2026-04-25-llm-wiki-pattern.md)
+  ⎿  Wrote 52 lines to
+     ..\c\finvault\wiki\sources\2026-04-25-llm-wiki-pattern.md
+       2 title: "LLM Wiki: A Pattern for Building Personal Knowledge Base
+         s"
+       3 type: source
+       4 tags: [knowledge-management, llm, second-brain, obsidian]
+       5 created: 2026-04-25
+       6 updated: 2026-04-25
+       7 status: active
+       8 original: raw/2026-04-25-llm-wiki-pattern.md
+       9 sources: []
+      10 related: [rag-vs-wiki-synthesis, vannevar-bush-memex]
+     … +69 lines (ctrl+o to expand)
+
+● Write(wiki\concepts\persistent-wiki-pattern.md)
+  ⎿  Wrote 33 lines to
+     ..\c\finvault\wiki\concepts\persistent-wiki-pattern.md
+       2 title: Persistent Wiki Pattern
+       3 type: concept
+       4 tags: [knowledge-management, llm, second-brain]
+       5 created: 2026-04-25
+       6 updated: 2026-04-25
+       7 sources: [2026-04-25-llm-wiki-pattern]
+       8 related: [rag-retrieval-augmented-generation, memex, lint-workfl
+         ow]
+       9 status: active
+      10 ---
+     … +36 lines (ctrl+o to expand)
+
+● Write(wiki\concepts\rag-retrieval-augmented-generation.md)
+  ⎿  Wrote 31 lines to
+     ..\c\finvault\wiki\concepts\rag-retrieval-augmented-generation.md
+       1 ---
+       2 title: RAG (Retrieval-Augmented Generation)
+       3 type: concept
+       4 tags: [llm, knowledge-management, ai]
+       5 created: 2026-04-25
+       6 updated: 2026-04-25
+       7 sources: [2026-04-25-llm-wiki-pattern]
+       8 related: [persistent-wiki-pattern]
+       9 status: stub
+      10 ---
+     … +30 lines (ctrl+o to expand)
+● Write(wiki\entities\vannevar-bush.md)
+  ⎿  Wrote 37 lines to ..\c\finvault\wiki\entities\vannevar-bush.md
+       1 ---
+       2 title: Vannevar Bush
+       3 type: entity
+       4 category: person
+       5 tags: [history, knowledge-management, computing]
+       6 created: 2026-04-25
+       7 updated: 2026-04-25
+       8 sources: [2026-04-25-llm-wiki-pattern]
+       9 related: [memex, persistent-wiki-pattern]
+      10 status: stub
+     … +35 lines (ctrl+o to expand)
+
+● Write(wiki\entities\obsidian.md)
+  ⎿  Wrote 41 lines to ..\c\finvault\wiki\entities\obsidian.md
+       1 ---
+       2 title: Obsidian
+       3 type: entity
+       4 category: tool
+       5 tags: [pkm, markdown, knowledge-management]
+       6 created: 2026-04-25
+       7 updated: 2026-04-25
+       8 sources: [2026-04-25-llm-wiki-pattern]
+       9 related: [persistent-wiki-pattern, qmd]
+      10 status: stub
+     … +40 lines (ctrl+o to expand)
+
+● Now update index.md and log.md to reflect the ingest:
+
+● Write(index.md)
+  ⎿  Added 8 lines, removed 3 lines
+      10  
+      11  | Page | Summary | Date |
+      12  |------|---------|------|
+      13 -| — | *No sources ingested yet* | — |                          
+      13 +| [[2026-04-25-llm-wiki-pattern]] | Founding source: LLM wiki p
+         +attern — persistent, compounding wiki vs. RAG | 2026-04-25 |   
+      14  
+      15  ---
+      16  
+     ...
+      18  
+      19  | Page | Category | Summary |
+      20  |------|----------|---------|
+      21 -| — | — | *No entities yet* |                                  
+      21 +| [[vannevar-bush]] | person | Inventor of the Memex concept (1
+         +945); prior art for personal knowledge stores |                
+      22 +| [[obsidian]] | tool | Local markdown app — recommended IDE fo
+         +r browsing this wiki |                                         
+      23 +| [[qmd]] | tool | Local markdown search engine (BM25/vector + 
+         +LLM re-ranking) — *stub pending ingest* |                      
+      24  
+      25  ---
+      26  
+     ...
+      28  
+      29  | Page | Summary |
+      30  |------|---------|
+      29 -| — | *No concepts yet* |                                      
+      31 +| [[persistent-wiki-pattern]] | Core pattern: LLM-maintained co
+         +mpounding wiki; contrast with RAG |                            
+      32 +| [[rag-retrieval-augmented-generation]] | Dominant alternative
+         + — re-derives answers per query, no compounding |              
+      33 +| [[memex]] | Bush's 1945 associative knowledge machine — *stub
+         + pending ingest* |                                             
+      34 +| [[lint-workflow]] | Health-check operation for contradictions
+         +, orphans, stubs, gaps — *stub pending ingest* |               
+      35  
+      36  ---
+      37  
+
+● Write(log.md)
+  ⎿  Added 4 lines
+       5  
+       6  ---
+       7  
+       8 +## [2026-04-25] ingest | LLM Wiki: A Pattern for Building Perso
+         +nal Knowledge Bases                                            
+       9 +                                                               
+      10 +Processed founding source (the idea file that defines this wiki
+         +'s pattern). Files created: `wiki/sources/2026-04-25-llm-wiki-p
+         +attern.md`, `wiki/concepts/persistent-wiki-pattern.md`, `wiki/c
+         +oncepts/rag-retrieval-augmented-generation.md`, `wiki/entities/
+         +vannevar-bush.md`, `wiki/entities/obsidian.md`. Index updated: 
+         +1 source, 3 entities (2 stubs), 4 concepts (2 stubs). Stubs to 
+         +flesh out: `qmd`, `memex`, `lint-workflow`.                    
+      11 +                                                               
+      12  ## [2026-04-25] init | FinVault Wiki Initialized
+      13  
+      14  Wiki structure created. Directories: `raw/`, `raw/assets/`, `wi
+          ki/entities/`, `wiki/concepts/`, `wiki/sources/`, `wiki/synthes
+          is/`, `wiki/_templates/`. Files created: `CLAUDE.md`, `index.md
+          `, `log.md`. Ready for first ingest.
+
+● Let me verify the full structure looks right:
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● FinVault is live. Here's what was built and how to use it:
+
+  ---
+  Structure created:
+  CLAUDE.md          ← the schema that governs every future interaction
+  index.md           ← your content catalog (I keep it current)
+  log.md             ← append-only timeline of all operations
+  raw/               ← drop sources here (I never modify this)
+  wiki/
+    sources/         ← one page per ingested source
+    entities/        ← companies, people, tools, projects
+    concepts/        ← ideas, frameworks, mental models
+    synthesis/       ← analyses, comparisons, filed Q&A answers
+    _templates/      ← reference templates
+
+  First ingest completed — the idea file you shared became 5 wiki pages: 1
+  source, 2 concept pages, 2 entity pages, with full frontmatter, cross-links,
+  and index/log updated.
+
+  ---
+  How to work with me going forward:
+
+  ┌────────────────────┬────────────────────────────────────────────────────┐
+  │      You say       │                     What I do                      │
+  ├────────────────────┼────────────────────────────────────────────────────┤
+  │ ingest             │ Full ingest workflow — source page, entity/concept │
+  │ raw/filename.md    │  updates, index, log                               │
+  ├────────────────────┼────────────────────────────────────────────────────┤
+  │ Ask any question   │ Read index → read relevant pages → synthesize with │
+  │                    │  citations; offer to file as synthesis page        │
+  ├────────────────────┼────────────────────────────────────────────────────┤
+  │ lint the wiki      │ Health check — contradictions, orphans, stubs,     │
+  │                    │ missing pages, suggestions                         │
+  └────────────────────┴────────────────────────────────────────────────────┘
+
+  Next step: Open Obsidian, browse the graph view, and drop your first real
+  source into raw/. Finance article, paper, book chapter, meeting notes —
+  anything goes.
+
+✻ Cogitated for 4m 59s
+
+❯ /cost                                                                         
+  ⎿  Total cost:            $0.78
+     Total duration (API):  4m 56s
+     Total duration (wall): 25m 52s
+     Total code changes:    730 lines added, 3 lines removed
+     Usage by model:
+         claude-haiku-4-5:  3.1k input, 14 output, 0 cache read, 0 cache write ($0.0032)
+        claude-sonnet-4-6:  23 input, 14.0k output, 744.0k cache read, 90.6k cache write ($0.77)
